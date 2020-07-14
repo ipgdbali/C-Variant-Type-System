@@ -2,7 +2,22 @@
 
 CInt::CInt()
 {
-	this->setDataType(10);
+	this->setDataType(CInt::getClassId());
+}
+
+CInt::CInt(CTypedVariant & typedVariant) : 
+	CInt()
+{
+	if(typedVariant.getDataType() == this->getDataType())
+	{
+		int value;
+		typedVariant.get(&value);
+		this->set(value);
+	}
+	else
+	{
+		throw std::domain_error("Data Type mismatch");
+	}
 }
 
 CInt::CInt(int val) : CInt()
@@ -16,7 +31,7 @@ CInt::~CInt()
 
 void CInt::set(int value)
 {
-	CVariant::set(&value,sizeof(int));
+	((CVariant*)this)->set(&value,sizeof(int));
 }
 
 int CInt::get()

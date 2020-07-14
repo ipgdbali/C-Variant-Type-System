@@ -27,6 +27,7 @@ class CVariant
 
 	protected:
 
+
 	public:
 
 		//Contruc an empty CVariant

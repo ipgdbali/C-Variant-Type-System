@@ -2,14 +2,14 @@
 
 all : bin/main
 
-bin/main : main.cpp bin/CVariant.o
+bin/main : main.cpp bin/CVariant.o bin/CTypedVariant.o bin/CInt.o
 	@printf "Making binary main ... "
-	@g++ -fsanitize=leak -g -o bin/main -Iheader main.cpp bin/CVariant.o
+	@g++ -fsanitize=leak -g -o bin/main -Iheader $^
 	@printf "done\n"
 
-bin/CVariant.o : source/CVariant.cpp
-	@printf "Compiling CVariant ... "
-	@g++ -c -g -fsanitize=leak -o bin/CVariant.o -Iheader source/CVariant.cpp
+bin/%.o : source/%.cpp
+	@printf "Compiling $@ ... "
+	@g++ -c -g -fsanitize=leak -o $@ -Iheader $<
 	@printf "done\n"
 
 run	: bin/main

@@ -20,15 +20,23 @@ CVariant & CVariant::operator = (CVariant & value)
 	return *this;
 }
 
-CVariant::CVariant(CVariant && value) : CVariant(value)
+CVariant::CVariant(CVariant && value) :
+	m_pData(std::move(value.m_pData)),
+	m_DataSize(std::move(value.m_DataSize))
+
 {
-	value.clear();
+	value.m_pData = nullptr;
+	this->m_DataSize = 0;
 }
 
 CVariant& CVariant::operator = (CVariant && value)
 {
-	this->set(value);
-	value.clear();
+	this->clear();
+	this->m_pData = std::move(value.m_pData);
+	value.m_pData = nullptr;
+	this->m_DataSize = std::move(value.m_DataSize);
+	this->m_DataSize = 0;
+
 	return *this;
 }
 

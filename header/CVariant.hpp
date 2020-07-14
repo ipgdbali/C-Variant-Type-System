@@ -31,7 +31,7 @@ class CVariant
 
 		//Contruc an empty CVariant
 		CVariant();
-		~CVariant();
+		virtual ~CVariant();
 
 		//Copy Constructor
 		CVariant(const CVariant & value);

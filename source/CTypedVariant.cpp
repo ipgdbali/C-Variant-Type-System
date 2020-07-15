@@ -6,58 +6,44 @@ void CTypedVariant::setDataType(size_t dataType)
 }
 
 CTypedVariant::CTypedVariant() :
-	m_bChangeDataType(true),m_DataType(0)
+	m_DataType(0)
 {
 }
 
 CTypedVariant::CTypedVariant(const CTypedVariant &typedVariant) :
-	CVariant(typedVariant),
-	m_DataType(typedVariant.m_DataType),
-	m_bChangeDataType(typedVariant.m_bChangeDataType)
+	CVariant(typedVariant),m_DataType(typedVariant.m_DataType)
 {
+}
+
+CTypedVariant::CTypedVariant(CTypedVariant && value) : 
+	CVariant(std::move(value)),m_DataType(std::move(value.m_DataType))
+{
+	value.m_DataType = 0;
 }
 
 CTypedVariant & CTypedVariant::operator = (const CTypedVariant & value)
 {
-	if(this->getDataType() == value.getDataType() || this->getIsFlexible())
-	{
-		//From CVariant Method
-		this->set(value);
-
-		// This method
-		this->setDataType(value.getDataType());
-	}
-	else
-	{
-		throw std::domain_error("Data Type mismatch on flexbility is false");
-	}
+	this->set(value);
 	return *this;
-}
-
-CTypedVariant::CTypedVariant(CTypedVariant && value) : 
-	CVariant(std::move(value)),
-	m_DataType(std::move(value.m_DataType)),
-	m_bChangeDataType(std::move(value.m_bChangeDataType))
-{
 }
 
 CTypedVariant & CTypedVariant::operator = (CTypedVariant && value)
 {
-	this->clear();
-
-	this->m_DataType = std::move(value.m_DataType);
-	this->m_bChangeDataType = std::move(value.m_bChangeDataType);
+	this->set(std::move(value));
 	return *this;
 }
 
-void CTypedVariant::setIsFlexible(bool flexible)
+void CTypedVariant::set(const CTypedVariant & value)
 {
-	this->m_bChangeDataType = flexible;
+	((CVariant*)this)->set(value);
+	this->m_DataType = value.m_DataType;
 }
 
-bool CTypedVariant::getIsFlexible() const
+void CTypedVariant::set(CTypedVariant && value)
 {
-	return this->m_bChangeDataType;
+	((CVariant*)this)->set(std::move(value));
+	this->m_DataType = value.m_DataType;
+	value.m_DataType = 0;
 }
 
 size_t CTypedVariant::getDataType() const

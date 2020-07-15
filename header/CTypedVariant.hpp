@@ -7,11 +7,8 @@ class CTypedVariant : public CVariant
 {
 	private:
 		size_t m_DataType;
-		bool	m_bChangeDataType;
 
 	protected:
-
-		//Only Derived class can set
 		void setDataType(size_t dataType);
 
 	public:
@@ -20,27 +17,24 @@ class CTypedVariant : public CVariant
 
 		//Copy Construtor
 		CTypedVariant(const CTypedVariant & value);
-		//Copy Operator
-		CTypedVariant & operator = (const CTypedVariant & value);
 
 		//Move Construtor
 		CTypedVariant(CTypedVariant && value);
+
+		//Copy Operator
+		CTypedVariant & operator = (const CTypedVariant & value);
+
 		//Move Operator
 		CTypedVariant & operator = (CTypedVariant && value);
 
-		
-		/**
-		 * Set Flexibilty
-		 * Flexibilty means CTypedVariant may change its data type
-		 * after set
-		 */
-		void setIsFlexible(bool flexible);
-		/**
-		 * Return flexibility
-		 * If class has flexibilty mean it can change type after set
-		 * and vice versa
-		 */
-		bool getIsFlexible() const;
+		//Copy Set
+		void set(const CTypedVariant & value);
+
+		//Move Set
+		void set(CTypedVariant && value);
+
+		//Raw Set
+		virtual void set(void * value) = 0;
 
 		size_t getDataType() const;
 };

@@ -15,7 +15,7 @@ bin/%.o : source/%.cpp
 run	: bin/main
 	@./bin/main
 
-clean	: bin/main
+clear	: bin/main
 	@printf "Cleaning binary folder ... "
 	@rm bin/*
 	@printf "done\n"

@@ -9,61 +9,71 @@ CVariant::~CVariant()
 	clear();
 }
 
-CVariant::CVariant(const CVariant & value) : CVariant()
+CVariant::CVariant(const CVariant & source) : CVariant()
 {
-	this->set(value.m_pData,value.m_DataSize);
+	this->set(source);
 }
 
-CVariant & CVariant::operator = (CVariant & value)
+CVariant & CVariant::operator = (const CVariant & source)
 {
-	this->set(value);
+	this->set(source);
 	return *this;
 }
 
-CVariant::CVariant(CVariant && value) :
-	m_pData(std::move(value.m_pData)),
-	m_DataSize(std::move(value.m_DataSize))
-
+CVariant::CVariant(CVariant && source) : CVariant()
 {
-	value.m_pData = nullptr;
-	this->m_DataSize = 0;
+	this->set(std::move(source));
 }
 
-CVariant& CVariant::operator = (CVariant && value)
+CVariant& CVariant::operator = (CVariant && source)
 {
-	this->clear();
-	this->m_pData = std::move(value.m_pData);
-	value.m_pData = nullptr;
-	this->m_DataSize = std::move(value.m_DataSize);
-	this->m_DataSize = 0;
-
+	this->set(std::move(source));
 	return *this;
 }
 
 CVariant::CVariant(const void * pData,size_t dataSize):CVariant()
 {
-	this->set(pData,dataSize);
+	this->alloc(pData,dataSize);
 }
 
-void CVariant::set(const CVariant & value)
+CVariant::CVariant(void * pData,size_t dataSize):CVariant()
 {
-	this->set(value.m_pData,value.m_DataSize);
+	this->copy(pData,dataSize);
 }
 
-void CVariant::set(const void * pData,size_t dataSize)
+void CVariant::set(const CVariant & source)
 {
-	if(pData == nullptr)
-		throw std::invalid_argument("pData cannot be null");
+	this->alloc((const void *)source.m_pData,source.m_DataSize);
+}
 
-	if(dataSize == 0)
-		throw std::invalid_argument("dataSize cannot be null");
+void CVariant::set(CVariant && source)
+{
+	this->copy(source.m_pData,source.m_DataSize);
+	source.m_pData = nullptr;
+	source.m_DataSize = 0;
+}
 
-	//clear previous old value
+void CVariant::alloc(const void * pData,size_t dataSize)
+{
+	if(pData == nullptr || dataSize == 0)
+		return;
+
 	this->clear();
-
 	this->m_DataSize = dataSize;
 	this->m_pData = malloc(this->m_DataSize);
 	memcpy(m_pData,pData,this->m_DataSize);
+}
+
+//cannot be join with alloc
+//since m_pData is not const
+void CVariant::copy(void * pData,size_t dataSize)
+{
+	if(pData == nullptr || dataSize == 0)
+		return;
+
+	this->clear();
+	this->m_DataSize = dataSize;
+	this->m_pData = pData;
 }
 
 size_t CVariant::getSize()
@@ -71,7 +81,7 @@ size_t CVariant::getSize()
 	return this->m_DataSize;
 }
 
-void CVariant::get(void * pData)
+void CVariant::getData(void * pData)
 {
 	if(pData != nullptr)
 	{
@@ -87,9 +97,7 @@ void CVariant::get(void * pData)
 void CVariant::clear()
 {
 	if(this->m_pData != nullptr)
-	{
 		free(this->m_pData);
-		this->m_pData = nullptr;
-		this->m_DataSize = 0;
-	}
+	this->m_pData = nullptr;
+	this->m_DataSize = 0;
 }

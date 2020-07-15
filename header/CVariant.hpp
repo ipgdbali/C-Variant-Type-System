@@ -15,61 +15,109 @@
 using namespace std;
 
 /**
- * CVariant enables storing any kind of data.
+ * CVariant enables user to store any kind of data.
  * This functionality is achieved by using dynamic memory allocation at runtime
  *
  */
 class CVariant
 {
 	private:
+		/**
+		 * Pointer to data
+		 * Size of allocated memory stored in m_Data size member
+		 */
 		void * m_pData;
+
+		/**
+		 * Size of data allocated for m_pData
+		 */
 		size_t m_DataSize;
 
 	protected:
 
-
 	public:
 
-		//Contruc an empty CVariant
+		/**
+		 * Construct an empty CVariant
+		 * Set internal data to nullptr and 0.
+		 */
 		CVariant();
+
+		/**
+		 * Destroy Created CVariant by releasing its allocated resource
+		 * This destructor calls clear method to clear its allocated 
+		 * resource
+		 */
 		virtual ~CVariant();
 
-		//Copy Constructor
-		CVariant(const CVariant & value);
-		//Copy Operator
-		CVariant & operator = (CVariant & value);
+		/**
+		 * Construct CVariant from another CVariant
+		 * Data is deep copied not just its pointer.
+		 */
+		CVariant(const CVariant & source);
 
-		//Move Constructor
-		CVariant(CVariant && value);
-		//Move Operator
-		CVariant& operator = (CVariant && value);
+		/**
+		 * Copy CVariant from another CVariant with assignment operator
+		 * @return
+		 * Reference pointed by this
+		 */
+		CVariant & operator = (const CVariant & source);
 
-		//Construct with some value
+		/**
+		 * Move constructor
+		 * Construct Object by moving it from source CVariant.
+		 * Source CVariant will lose its ownership to data.
+		 */
+		CVariant(CVariant && source);
+
+		/**
+		 * Move CVariant by moving it from source
+		 */
+		CVariant& operator = (CVariant && source);
+
+		/**
+		 * Construct By Duplicating data
+		 */
 		CVariant(const void * pData,size_t dataSize);
 
-		/*
-		 * Set CVariant with data from another CVariant)
+		/**
+		 * Construct By Move
 		 */
-		void set(const CVariant & value);
+		CVariant(void * pData,size_t dataSize);
 
 		/*
-		 * Set CVariant Data with data
+		 * Set By Copy from another CVariant source
 		 */
-		void set(const void * pData,size_t dataSize);
+		void set(const CVariant & source);
+
+		/**
+		 * Set By Move from another CVariant source
+		 */
+		void set(CVariant && source);
+
+		/*
+		 *
+		 */
+		void alloc(const void * pData,size_t dataSize);
+
+		/**
+		 */
+		void copy(void * pData,size_t dataSize);
 
 		/**
 		 * Return size of data
+		 * CVariant get is Size when method set is called.
 		 */
 		size_t getSize();
 
 		/**
 		 * copy Data from CVariant into pData
-		 *
+		 * This is the only way to retrieve CVariant data
 		 */
-		void get(void * pData);
+		void getData(void * pData);
 
 		/**
-		 * Clearing internal's allocated data
+		 * Clearing internal's allocated data and set it to nullptr and 0
 		 */
 		void clear();
 };

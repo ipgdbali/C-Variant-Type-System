@@ -1,47 +1,26 @@
 #include "CInt.hpp"
 
-void CInt::set(void * value)
+CInt::CInt(const CTypedVariant & source) : 
+	CStronglyTyped(source)
 {
-	((CVariant*)this)->alloc(value,sizeof(int));
 }
 
-CInt::CInt()
+CInt::CInt(CTypedVariant && source) :
+	CStronglyTyped(std::move(source))
 {
-	this->setDataType(CInt::getClassId());
-}
-
-CInt::CInt(const CTypedVariant & typedVariant) : 
-	CInt()
-{
-	if(typedVariant.getDataType() == CInt::getClassId())
-		((CTypedVariant*)this)->set(typedVariant);
-	else
-		throw std::invalid_argument("Wrong Class");
-}
-
-CInt::CInt(CTypedVariant && typedVariant)
-{
-	if(typedVariant.getDataType() == CInt::getClassId())
-		((CTypedVariant*)this)->set(std::move(typedVariant));
-	else
-		throw std::invalid_argument("Wrong Class");
 }
 
 CInt & CInt::operator = (const CTypedVariant & value)
 {
-	if(value.getDataType() == CInt::getClassId())
-		((CTypedVariant*)this)->set(value);
-	else
-		throw std::invalid_argument("Wrong Class");
+	CStronglyTyped * parent = (CStronglyTyped*)this;
+	parent->operator=(value);
 	return *this;
 }
 
 CInt & CInt::operator = (CTypedVariant && value)
 {
-	if(value.getDataType() == CInt::getClassId())
-		((CTypedVariant*)this)->set(std::move(value));
-	else
-		throw std::invalid_argument("Wrong Class");
+	CStronglyTyped * parent = (CStronglyTyped*)this;
+	parent->operator=(value);
 	return *this;
 }
 
@@ -54,6 +33,11 @@ CInt::~CInt()
 {
 }
 
+void CInt::set(void * pSource)
+{
+	((CVariant*)this)->alloc(pSource,sizeof(int));
+}
+
 void CInt::set(int value)
 {
 	this->set((void*)&value);
@@ -64,6 +48,11 @@ int CInt::get() const
 	int value;
 	((CVariant*)this)->getData(&value);
 	return value;
+}
+
+size_t CInt::getClassId()
+{
+	return 10;
 }
 
 CInt::operator int()

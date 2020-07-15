@@ -2,7 +2,7 @@
 
 all : bin/main
 
-bin/main : main.cpp bin/CVariant.o bin/CTypedVariant.o bin/CInt.o
+bin/main : main.cpp bin/CVariant.o bin/CTypedVariant.o bin/CInt.o bin/CStronglyTyped.o
 	@printf "Making binary main ... "
 	@g++ -fsanitize=leak -g -o bin/main -Iheader $^
 	@printf "done\n"

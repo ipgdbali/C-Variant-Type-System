@@ -33,9 +33,6 @@ class CTypedVariant : public CVariant
 		//Move Set
 		void set(CTypedVariant && value);
 
-		//Raw Set
-		virtual void set(void * value) = 0;
-
 		size_t getDataType() const;
 };
 

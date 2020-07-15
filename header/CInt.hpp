@@ -1,22 +1,15 @@
 #ifndef CINT_HPP
 #define CINT_HPP
 
-#include "CTypedVariant.hpp"
+#include "CStronglyTyped.hpp"
 
-class CInt : public CTypedVariant
+class CInt : public CStronglyTyped
 {
 	private:
 
 	protected:
-		static size_t getClassId()
-		{
-			return 10;
-		};
-
 
 	public:
-
-		CInt();
 
 		//Copy Constructor 
 		CInt(const CTypedVariant & value);
@@ -33,9 +26,11 @@ class CInt : public CTypedVariant
 		CInt & operator = (const CTypedVariant & TypedVariant);
 		CInt & operator = (CTypedVariant && TypedVariant);
 
-		void set(void * value);
+		void set(void * pSource);
 		void set(int value);
 		int get() const;
+
+		size_t getClassId();
 		operator int();
 };
 

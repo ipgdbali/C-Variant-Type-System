@@ -14,21 +14,9 @@ CVariant::CVariant(const CVariant & source) : CVariant()
 	this->set(source);
 }
 
-CVariant & CVariant::operator = (const CVariant & source)
-{
-	this->set(source);
-	return *this;
-}
-
 CVariant::CVariant(CVariant && source) : CVariant()
 {
 	this->set(std::move(source));
-}
-
-CVariant& CVariant::operator = (CVariant && source)
-{
-	this->set(std::move(source));
-	return *this;
 }
 
 CVariant::CVariant(const void * pData,size_t dataSize):CVariant()
@@ -39,6 +27,18 @@ CVariant::CVariant(const void * pData,size_t dataSize):CVariant()
 CVariant::CVariant(void * pData,size_t dataSize):CVariant()
 {
 	this->copy(pData,dataSize);
+}
+
+CVariant & CVariant::operator = (const CVariant & source)
+{
+	this->set(source);
+	return *this;
+}
+
+CVariant& CVariant::operator = (CVariant && source)
+{
+	this->set(std::move(source));
+	return *this;
 }
 
 void CVariant::set(const CVariant & source)

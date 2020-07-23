@@ -11,19 +11,23 @@ class CStronglyTyped : public CTypedVariant
 
 		CStronglyTyped();
 
-		//Copy Constructor
-		CStronglyTyped(const CTypedVariant & source);
-		CStronglyTyped(CTypedVariant && source);
+		CStronglyTyped(const CStronglyTyped & source);
+
+		CStronglyTyped(CStronglyTyped && source);
 
 		//Copy Operator
-		CStronglyTyped & operator = (const CStronglyTyped & source);
+		virtual CStronglyTyped & operator = (const CStronglyTyped & source);
 
 		//Move Operator
-		CStronglyTyped & operator = (CStronglyTyped && source);
+		virtual CStronglyTyped & operator = (CStronglyTyped && source);
 
-		virtual void set(void * pSource) = 0;
+		//Copy Method
+		virtual void set(const CStronglyTyped & source);
 
-		virtual size_t getClassId() = 0;
+		//Move Method
+		virtual void set(CStronglyTyped && source);
+
+		size_t getClassId();
 
 };
 

@@ -12,10 +12,10 @@ class CInt : public CStronglyTyped
 	public:
 
 		//Copy Constructor 
-		CInt(const CTypedVariant & value);
+		CInt(const CInt & value);
 
 		//Move Constructor 
-		CInt(CTypedVariant && value);
+		CInt(CInt && value);
 
 		//Default Value Construtor
 		CInt(int val);
@@ -23,14 +23,10 @@ class CInt : public CStronglyTyped
 		//Destructor
 		~CInt();
 
-		CInt & operator = (const CTypedVariant & TypedVariant);
-		CInt & operator = (CTypedVariant && TypedVariant);
-
-		void set(void * pSource);
 		void set(int value);
+
 		int get() const;
 
-		size_t getClassId();
 		operator int();
 };
 

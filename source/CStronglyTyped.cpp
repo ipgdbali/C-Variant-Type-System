@@ -1,57 +1,46 @@
 #include "CStronglyTyped.hpp"
 
-CStronglyTyped::CStronglyTyped()
+CStronglyTyped::CStronglyTyped() : 
+	CTypedVariant()
 {
-	this->setDataType(this->getClassId());
 }
 
-CStronglyTyped::CStronglyTyped(const CTypedVariant & source)
+CStronglyTyped::CStronglyTyped(const CStronglyTyped & source) : 
+	CTypedVariant(source)
 {
-	if(source.getDataType() == this->getClassId())
-	{
-		((CTypedVariant*)this)->set(source);
-	}
-	else
-	{
-		throw std::invalid_argument("Wrong class");
-	}
 }
 
-CStronglyTyped::CStronglyTyped(CTypedVariant && source)
+CStronglyTyped::CStronglyTyped(CStronglyTyped && source) :
+	CTypedVariant(std::move(source))
 {
-	if(source.getDataType() == this->getClassId())
-	{
-		((CTypedVariant*)this)->set(std::move(source));
-	}
-	else
-	{
-		throw std::invalid_argument("Wrong class");
-	}
 }
 
 CStronglyTyped & CStronglyTyped::operator = (const CStronglyTyped & source)
 {
-	if(this->getDataType() == source.getDataType())
-	{
-		((CTypedVariant*)this)->set(source);
-	}
-	else
-	{
-		throw std::invalid_argument("Wrong class");
-	}
+	this->set(source);
 	return *this;
 }
 
-CStronglyTyped & CStronglyTyped::operator = (const CStronglyTyped & source)
+CStronglyTyped & CStronglyTyped::operator = (CStronglyTyped && source)
 {
-	if(this->getDataType() == source.getDataType())
-	{
-		((CTypedVariant*)this)->set(std::move(source));
-	}
-	else
-	{
-		throw std::invalid_argument("Wrong class");
-	}
+	this->set(std::move(source));
 	return *this;
 }
+
+void CStronglyTyped::set(const CStronglyTyped & source)
+{
+	if(this->getDataType() == source.getDataType())
+		((CTypedVariant*)this)->set(source);
+	else
+		throw std::invalid_argument("Wrong class");
+}
+
+void CStronglyTyped::set(CStronglyTyped && source)
+{
+	if(this->getDataType() == source.getDataType())
+		((CTypedVariant*)this)->set(std::move(source));
+	else
+		throw std::invalid_argument("Wrong class");
+}
+
 

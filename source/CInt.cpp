@@ -1,30 +1,17 @@
 #include "CInt.hpp"
 
-CInt::CInt(const CTypedVariant & source) : 
+CInt::CInt(const CInt & source) : 
 	CStronglyTyped(source)
 {
 }
 
-CInt::CInt(CTypedVariant && source) :
+CInt::CInt(CInt && source) :
 	CStronglyTyped(std::move(source))
 {
 }
 
-CInt & CInt::operator = (const CTypedVariant & value)
-{
-	CStronglyTyped * parent = (CStronglyTyped*)this;
-	parent->operator=(value);
-	return *this;
-}
-
-CInt & CInt::operator = (CTypedVariant && value)
-{
-	CStronglyTyped * parent = (CStronglyTyped*)this;
-	parent->operator=(value);
-	return *this;
-}
-
-CInt::CInt(int val) : CInt()
+CInt::CInt(int val) : 
+	CStronglyTyped()
 {
 	this->set(val);
 }
@@ -33,14 +20,9 @@ CInt::~CInt()
 {
 }
 
-void CInt::set(void * pSource)
-{
-	((CVariant*)this)->alloc(pSource,sizeof(int));
-}
-
 void CInt::set(int value)
 {
-	this->set((void*)&value);
+	((CVariant*)this)->alloc(&value,sizeof(int));
 }
 
 int CInt::get() const
@@ -48,11 +30,6 @@ int CInt::get() const
 	int value;
 	((CVariant*)this)->getData(&value);
 	return value;
-}
-
-size_t CInt::getClassId()
-{
-	return 10;
 }
 
 CInt::operator int()

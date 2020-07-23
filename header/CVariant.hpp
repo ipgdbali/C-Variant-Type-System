@@ -57,23 +57,11 @@ class CVariant
 		CVariant(const CVariant & source);
 
 		/**
-		 * Copy CVariant from another CVariant with assignment operator
-		 * @return
-		 * Reference pointed by this
-		 */
-		CVariant & operator = (const CVariant & source);
-
-		/**
 		 * Move constructor
 		 * Construct Object by moving it from source CVariant.
 		 * Source CVariant will lose its ownership to data.
 		 */
 		CVariant(CVariant && source);
-
-		/**
-		 * Move CVariant by moving it from source
-		 */
-		CVariant& operator = (CVariant && source);
 
 		/**
 		 * Construct By Duplicating data
@@ -85,15 +73,27 @@ class CVariant
 		 */
 		CVariant(void * pData,size_t dataSize);
 
+		/**
+		 * Copy CVariant from another CVariant with assignment operator
+		 * @return
+		 * Reference pointed by this
+		 */
+		virtual CVariant & operator = (const CVariant & source);
+
+		/**
+		 * Move CVariant by moving it from source
+		 */
+		virtual CVariant& operator = (CVariant && source);
+
 		/*
 		 * Set By Copy from another CVariant source
 		 */
-		void set(const CVariant & source);
+		virtual void set(const CVariant & source);
 
 		/**
 		 * Set By Move from another CVariant source
 		 */
-		void set(CVariant && source);
+		virtual void set(CVariant && source);
 
 		/*
 		 *

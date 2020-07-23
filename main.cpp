@@ -1,33 +1,15 @@
 #include <cstdio>
 #include "CInt.hpp"
+#include "CUInt.hpp"
 
-class CPerson
-{
-	private:
-	protected:
-	public:
-
-		~CPerson()
-		{
-			delete age;
-		}
-		CTypedVariant * age;
-		void setAge(int value)
-		{
-			age = new CInt(value);
-		}
-
-		void print()
-		{
-			CInt * pInt = (CInt*)age;
-			printf("%d",(int)*(pInt));
-		}
-};
+// TODO :
+// Create CUInt
 
 int main(int argc,char * argv[])
 {
-	CPerson person;
-	person.setAge(10);
-	person.print();
+	CInt i(10),j(20);
+	CStronglyTyped st(i),wt(j);
+	st = wt;
+
 	return 0;
 }

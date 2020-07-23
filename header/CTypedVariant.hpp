@@ -22,16 +22,16 @@ class CTypedVariant : public CVariant
 		CTypedVariant(CTypedVariant && value);
 
 		//Copy Operator
-		CTypedVariant & operator = (const CTypedVariant & value);
+		virtual CTypedVariant & operator = (const CTypedVariant & value);
 
 		//Move Operator
-		CTypedVariant & operator = (CTypedVariant && value);
+		virtual CTypedVariant & operator = (CTypedVariant && value);
 
 		//Copy Set
-		void set(const CTypedVariant & value);
+		virtual void set(const CTypedVariant & value);
 
 		//Move Set
-		void set(CTypedVariant && value);
+		virtual void set(CTypedVariant && value);
 
 		size_t getDataType() const;
 };

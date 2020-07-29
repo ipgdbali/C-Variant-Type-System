@@ -1,9 +1,9 @@
 .PHONE : clean
 
-all : CInt
+all : bin/CVariant
 
-% : %.cpp
-	g++ -I./../header -o $@ $^ 
+bin/% : %.cpp
+	g++ -I./../header -L./../bin -o $@ $^ -lVariant
 
 clean :
 	rm bin/*

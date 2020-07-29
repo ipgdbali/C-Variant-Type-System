@@ -74,11 +74,6 @@ class CVariant
 		CVariant(const void * pData,size_t dataSize);
 
 		/**
-		 * Construct By Move
-		 */
-		CVariant(void * pData,size_t dataSize);
-
-		/**
 		 * Copy CVariant from another CVariant with assignment operator
 		 * @return
 		 * Reference pointed by this

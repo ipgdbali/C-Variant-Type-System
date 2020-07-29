@@ -4,9 +4,6 @@
 //since m_pData is not const
 void CVariant::copy(void * pData,size_t dataSize)
 {
-	if(pData == nullptr || dataSize == 0)
-		return;
-
 	this->clear();
 	this->m_DataSize = dataSize;
 	this->m_pData = pData;
@@ -51,11 +48,6 @@ CVariant::CVariant(const void * pData,size_t dataSize):CVariant()
 	this->alloc(pData,dataSize);
 }
 
-CVariant::CVariant(void * pData,size_t dataSize):CVariant()
-{
-	this->copy(pData,dataSize);
-}
-
 /**
  * Copy Operator
  */
@@ -88,9 +80,6 @@ void CVariant::set(CVariant && source)
 
 void CVariant::alloc(const void * pData,size_t dataSize)
 {
-	if(pData == nullptr || dataSize == 0)
-		return;
-
 	this->clear();
 	this->m_DataSize = dataSize;
 	this->m_pData = malloc(this->m_DataSize);

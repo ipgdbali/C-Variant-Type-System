@@ -113,9 +113,9 @@ class CVariant
 
 		/**
 		 * copy Data from CVariant into pData
-		 * This is the only way to retrieve CVariant data
+		 * return true if internal data is not null otherwise false
 		 */
-		void getData(void * pData);
+		bool getData(void * pData);
 
 		/**
 		 * Clearing internal's allocated data and set it to nullptr and 0

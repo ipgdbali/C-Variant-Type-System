@@ -103,22 +103,20 @@ size_t CVariant::getSize()
 	return this->m_DataSize;
 }
 
-void CVariant::getData(void * pData)
+bool CVariant::getData(void * pData)
 {
-	if(pData != nullptr)
+	if(!this->isNull())
 	{
-		if(m_pData != nullptr && this->m_DataSize != 0)
-			memcpy(pData,m_pData,this->m_DataSize);
-		else
-			throw std::domain_error("Value is not yet set");
+		memcpy(pData,m_pData,this->m_DataSize);
+		return true
 	}
 	else
-		throw std::invalid_argument("pData cannot be null");
+		return false;
 }
 
 void CVariant::clear()
 {
-	if(this->m_pData != nullptr)
+	if(!this->isNull())
 		free(this->m_pData);
 	this->m_pData = nullptr;
 	this->m_DataSize = 0;

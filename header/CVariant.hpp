@@ -35,6 +35,11 @@ class CVariant
 
 	protected:
 
+		/**
+		 * Only assign pData and its size to Internal data structure
+		 */
+		void copy(void * pData,size_t dataSize);
+
 	public:
 
 		/**
@@ -64,7 +69,7 @@ class CVariant
 		CVariant(CVariant && source);
 
 		/**
-		 * Construct By Duplicating data
+		 * Construct By Allocating data
 		 */
 		CVariant(const void * pData,size_t dataSize);
 
@@ -96,13 +101,9 @@ class CVariant
 		virtual void set(CVariant && source);
 
 		/*
-		 *
+		 * Allocate data with dataSize and copy data from pData
 		 */
 		void alloc(const void * pData,size_t dataSize);
-
-		/**
-		 */
-		void copy(void * pData,size_t dataSize);
 
 		/**
 		 * Return size of data
@@ -120,6 +121,11 @@ class CVariant
 		 * Clearing internal's allocated data and set it to nullptr and 0
 		 */
 		void clear();
+
+		/**
+		 * Test wheter internal variable is null
+		 */
+		bool isNull();
 };
 
 #endif

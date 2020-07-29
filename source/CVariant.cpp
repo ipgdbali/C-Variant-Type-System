@@ -1,24 +1,51 @@
 #include "CVariant.hpp"
 
+//cannot be join with alloc
+//since m_pData is not const
+void CVariant::copy(void * pData,size_t dataSize)
+{
+	if(pData == nullptr || dataSize == 0)
+		return;
+
+	this->clear();
+	this->m_DataSize = dataSize;
+	this->m_pData = pData;
+}
+
+/**
+ * Default Constructor
+ */
 CVariant::CVariant() : m_pData(nullptr),m_DataSize(0)
 {
 }
 
+/**
+ * Virtual Destructor
+ */
 CVariant::~CVariant()
 {
 	clear();
 }
 
+/**
+ * Copy Constructor
+ */
 CVariant::CVariant(const CVariant & source) : CVariant()
 {
 	this->set(source);
 }
 
+/**
+ * Move Constructor
+ */
 CVariant::CVariant(CVariant && source) : CVariant()
 {
 	this->set(std::move(source));
 }
 
+/**
+ * Allocating Constructor
+ */
 CVariant::CVariant(const void * pData,size_t dataSize):CVariant()
 {
 	this->alloc(pData,dataSize);
@@ -29,12 +56,18 @@ CVariant::CVariant(void * pData,size_t dataSize):CVariant()
 	this->copy(pData,dataSize);
 }
 
+/**
+ * Copy Operator
+ */
 CVariant & CVariant::operator = (const CVariant & source)
 {
 	this->set(source);
 	return *this;
 }
 
+/**
+ * Move Operator
+ */
 CVariant& CVariant::operator = (CVariant && source)
 {
 	this->set(std::move(source));
@@ -64,17 +97,6 @@ void CVariant::alloc(const void * pData,size_t dataSize)
 	memcpy(m_pData,pData,this->m_DataSize);
 }
 
-//cannot be join with alloc
-//since m_pData is not const
-void CVariant::copy(void * pData,size_t dataSize)
-{
-	if(pData == nullptr || dataSize == 0)
-		return;
-
-	this->clear();
-	this->m_DataSize = dataSize;
-	this->m_pData = pData;
-}
 
 size_t CVariant::getSize()
 {
@@ -100,4 +122,12 @@ void CVariant::clear()
 		free(this->m_pData);
 	this->m_pData = nullptr;
 	this->m_DataSize = 0;
+}
+
+bool CVariant::isNull()
+{
+	if(this->m_pData == nullptr && this->m_DataSize == 0)
+		return true;
+	else
+		return false;
 }

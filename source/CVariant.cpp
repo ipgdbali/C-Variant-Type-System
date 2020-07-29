@@ -1,14 +1,5 @@
 #include "CVariant.hpp"
 
-//cannot be join with alloc
-//since m_pData is not const
-void CVariant::copy(void * pData,size_t dataSize)
-{
-	this->clear();
-	this->m_DataSize = dataSize;
-	this->m_pData = pData;
-}
-
 /**
  * Default Constructor
  */
@@ -73,7 +64,9 @@ void CVariant::set(const CVariant & source)
 
 void CVariant::set(CVariant && source)
 {
-	this->copy(source.m_pData,source.m_DataSize);
+	this->clear();
+	this->m_pData = source.m_pData;
+	this->m_DataSize = source.m_DataSize;
 	source.m_pData = nullptr;
 	source.m_DataSize = 0;
 }
@@ -97,7 +90,7 @@ bool CVariant::getData(void * pData)
 	if(!this->isNull())
 	{
 		memcpy(pData,m_pData,this->m_DataSize);
-		return true
+		return true;
 	}
 	else
 		return false;

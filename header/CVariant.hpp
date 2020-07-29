@@ -35,11 +35,6 @@ class CVariant
 
 	protected:
 
-		/**
-		 * Only assign pData and its size to Internal data structure
-		 */
-		void copy(void * pData,size_t dataSize);
-
 	public:
 
 		/**

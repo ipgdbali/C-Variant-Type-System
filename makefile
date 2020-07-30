@@ -12,7 +12,7 @@ bin/%.o : source/%.cpp
 	@g++ -c -g -fsanitize=leak -o $@ -Iheader $<
 	@printf "done\n"
 
-clean	: bin/libVariant.a
+clean : 
 	@printf "Cleaning binary folder ... "
 	@rm bin/*
 	@printf "done\n"

@@ -1,24 +1,24 @@
 #include "CTypedVariant.hpp"
 
-void CTypedVariant::setDataType(size_t dataType)
+void CTypedVariant::setDataTypeId(const char * dataTypeId)
 {
-	this->m_DataType = dataType;
+	this->m_DataTypeId = dataTypeId;
 }
 
 CTypedVariant::CTypedVariant() :
-	m_DataType(0)
+	m_DataTypeId(nullptr)
 {
 }
 
 CTypedVariant::CTypedVariant(const CTypedVariant &typedVariant) :
-	CVariant(typedVariant),m_DataType(typedVariant.m_DataType)
+	CVariant(typedVariant),m_DataTypeId(typedVariant.m_DataTypeId)
 {
 }
 
 CTypedVariant::CTypedVariant(CTypedVariant && value) : 
-	CVariant(std::move(value)),m_DataType(std::move(value.m_DataType))
+	CVariant(std::move(value)),m_DataTypeId(std::move(value.m_DataTypeId))
 {
-	value.m_DataType = 0;
+	value.m_DataTypeId = nullptr;
 }
 
 CTypedVariant & CTypedVariant::operator = (const CTypedVariant & value)
@@ -36,17 +36,17 @@ CTypedVariant & CTypedVariant::operator = (CTypedVariant && value)
 void CTypedVariant::set(const CTypedVariant & value)
 {
 	((CVariant*)this)->set(value);
-	this->m_DataType = value.m_DataType;
+	this->m_DataTypeId = value.m_DataTypeId;
 }
 
 void CTypedVariant::set(CTypedVariant && value)
 {
 	((CVariant*)this)->set(std::move(value));
-	this->m_DataType = value.m_DataType;
-	value.m_DataType = 0;
+	this->m_DataTypeId = value.m_DataTypeId;
+	value.m_DataTypeId = 0;
 }
 
-size_t CTypedVariant::getDataTypeId() const
+const char * CTypedVariant::getDataTypeId() const
 {
-	return this->m_DataType;
+	return this->m_DataTypeId;
 }

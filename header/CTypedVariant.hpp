@@ -8,10 +8,10 @@ class CTypedVariantAdapter;
 class CTypedVariant : public CVariant
 {
 	private:
-		size_t m_DataType;
+		const char * m_DataTypeId;
 
 	protected:
-		void setDataType(size_t dataType);
+		void setDataTypeId(const char * dataTypeId);
 
 		friend CTypedVariantAdapter;
 
@@ -41,7 +41,8 @@ class CTypedVariant : public CVariant
 		//Move Set
 		virtual void set(CTypedVariant && value);
 
-		size_t getDataTypeId() const;
+		//Get data type identifier
+		const char * getDataTypeId() const;
 };
 
 #endif

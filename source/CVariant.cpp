@@ -95,7 +95,7 @@ void CVariant::deAlloc()
 	this->m_DataSize = 0;
 }
 
-size_t CVariant::getSize()
+size_t CVariant::getSize() const
 {
 	return this->m_DataSize;
 }

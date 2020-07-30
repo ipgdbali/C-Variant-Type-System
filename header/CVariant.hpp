@@ -111,7 +111,7 @@ class CVariant
 		 * Return size of data
 		 * CVariant get is Size when method set is called.
 		 */
-		size_t getSize();
+		size_t getSize() const;
 
 		/**
 		 * Test wheter internal variable is null

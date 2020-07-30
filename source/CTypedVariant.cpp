@@ -46,7 +46,7 @@ void CTypedVariant::set(CTypedVariant && value)
 	value.m_DataType = 0;
 }
 
-size_t CTypedVariant::getDataType() const
+size_t CTypedVariant::getDataTypeId() const
 {
 	return this->m_DataType;
 }

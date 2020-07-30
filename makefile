@@ -1,8 +1,8 @@
 .PHONY : clean run all
 
-all : bin/libVariant
+all : bin/libVariant.a
 
-bin/libVariant : bin/CVariant.o bin/CTypedVariant.o bin/CStronglyTyped.o bin/CInt.o bin/CUInt.o
+bin/libVariant.a : bin/CVariant.o bin/CTypedVariant.o bin/CTypedVariantAdapter.o bin/CAdapterInt.o
 	@printf "Making library ... "
 	@ar rcs $@ $^
 	@printf "done\n"
@@ -12,7 +12,7 @@ bin/%.o : source/%.cpp
 	@g++ -c -g -fsanitize=leak -o $@ -Iheader $<
 	@printf "done\n"
 
-clean	: bin/libVariant
+clean	: bin/libVariant.a
 	@printf "Cleaning binary folder ... "
 	@rm bin/*
 	@printf "done\n"

@@ -64,11 +64,6 @@ class CVariant
 		CVariant(CVariant && source);
 
 		/**
-		 * Construct By Allocating data
-		 */
-		CVariant(const void * pData,size_t dataSize);
-
-		/**
 		 * Copy CVariant from another CVariant with assignment operator
 		 * @return
 		 * Reference pointed by this
@@ -98,24 +93,25 @@ class CVariant
 		/**
 		 * Write to allocate dataSize
 		 */
-		void write(const char * pData);
+		void write(const void * pData);
+
+		/**
+		 * copy Data from CVariant into pData
+		 * return true if internal data is not null otherwise false,
+		 * no data is read.
+		 */
+		bool read(void * pData);
+
+		/**
+		 * Clearing internal's allocated data and set it to nullptr and 0
+		 */
+		void deAlloc();
 
 		/**
 		 * Return size of data
 		 * CVariant get is Size when method set is called.
 		 */
 		size_t getSize();
-
-		/**
-		 * copy Data from CVariant into pData
-		 * return true if internal data is not null otherwise false
-		 */
-		bool getData(void * pData);
-
-		/**
-		 * Clearing internal's allocated data and set it to nullptr and 0
-		 */
-		void clear();
 
 		/**
 		 * Test wheter internal variable is null

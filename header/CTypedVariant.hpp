@@ -3,6 +3,8 @@
 
 #include "CVariant.hpp"
 
+class CTypedVariantAdapter;
+
 class CTypedVariant : public CVariant
 {
 	private:
@@ -11,8 +13,14 @@ class CTypedVariant : public CVariant
 	protected:
 		void setDataType(size_t dataType);
 
+		friend CTypedVariantAdapter;
+
 	public:
 
+		/**
+		 * Default Constructor
+		 * Contruct TypedVariant with DataType is NotSet (0)
+		 */
 		CTypedVariant();
 
 		//Copy Construtor
@@ -33,7 +41,7 @@ class CTypedVariant : public CVariant
 		//Move Set
 		virtual void set(CTypedVariant && value);
 
-		size_t getDataType() const;
+		size_t getDataTypeId() const;
 };
 
 #endif

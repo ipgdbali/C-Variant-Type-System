@@ -31,17 +31,16 @@ class CVariant
 		/**
 		 * Size of data allocated for m_pData
 		 */
-		size_t m_DataSize;
+		size_t m_Size;
 
 	protected:
 
 	public:
 
 		/**
-		 * Construct an empty CVariant
-		 * Set internal data to nullptr and 0.
+		 * Construct a CVariant
 		 */
-		CVariant();
+		CVariant(size_t size);
 
 		/**
 		 * Destroy Created CVariant by releasing its allocated resource
@@ -49,46 +48,6 @@ class CVariant
 		 * resource
 		 */
 		virtual ~CVariant();
-
-		/**
-		 * Construct CVariant from another CVariant
-		 * Data is deep copied not just its pointer.
-		 */
-		CVariant(const CVariant & source);
-
-		/**
-		 * Move constructor
-		 * Construct Object by moving it from source CVariant.
-		 * Source CVariant will lose its ownership to data.
-		 */
-		CVariant(CVariant && source);
-
-		/**
-		 * Copy CVariant from another CVariant with assignment operator
-		 * @return
-		 * Reference pointed by this
-		 */
-		virtual CVariant & operator = (const CVariant & source);
-
-		/**
-		 * Move CVariant by moving it from source
-		 */
-		virtual CVariant& operator = (CVariant && source);
-
-		/*
-		 * Set By Copy from another CVariant source
-		 */
-		virtual void set(const CVariant & source);
-
-		/**
-		 * Set By Move from another CVariant source
-		 */
-		virtual void set(CVariant && source);
-
-		/*
-		 * Allocate data with dataSize
-		 */
-		void alloc(size_t dataSize);
 
 		/**
 		 * Write to allocate dataSize
@@ -100,12 +59,7 @@ class CVariant
 		 * return true if internal data is not null otherwise false,
 		 * no data is read.
 		 */
-		bool read(void * pData);
-
-		/**
-		 * Clearing internal's allocated data and set it to nullptr and 0
-		 */
-		void deAlloc();
+		void read(void * pData);
 
 		/**
 		 * Return size of data
@@ -113,10 +67,6 @@ class CVariant
 		 */
 		size_t getSize() const;
 
-		/**
-		 * Test wheter internal variable is null
-		 */
-		bool isNull();
 };
 
 #endif

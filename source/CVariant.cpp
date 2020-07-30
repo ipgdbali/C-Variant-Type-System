@@ -79,6 +79,11 @@ void CVariant::alloc(const void * pData,size_t dataSize)
 	memcpy(m_pData,pData,this->m_DataSize);
 }
 
+void CVariant::write(const char * pData)
+{
+	memcpy(this->m_pData,pData,this->m_DataSize);
+}
+
 
 size_t CVariant::getSize()
 {

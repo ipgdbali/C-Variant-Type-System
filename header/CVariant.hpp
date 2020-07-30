@@ -91,9 +91,14 @@ class CVariant
 		virtual void set(CVariant && source);
 
 		/*
-		 * Allocate data with dataSize and copy data from pData
+		 * Allocate data with dataSize
 		 */
-		void alloc(const void * pData,size_t dataSize);
+		void alloc(size_t dataSize);
+
+		/**
+		 * Write to allocate dataSize
+		 */
+		void write(const char * pData);
 
 		/**
 		 * Return size of data

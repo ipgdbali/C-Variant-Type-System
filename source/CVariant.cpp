@@ -50,7 +50,7 @@ bool CVariant::alloc(size_t size)
 bool CVariant::write(const void * pData)
 {
 	// if pData has been allocated before
-	if(this->m_pData != nullptr)
+	if(this->m_pData != nullptr && this->m_Size != 0)
 	{
 		// copy data
 		memcpy(this->m_pData,pData,this->m_Size);
@@ -66,7 +66,7 @@ bool CVariant::write(const void * pData)
 bool CVariant::read(void * pData)
 {
 	// if pData has been allocated before
-	if(m_pData != nullptr)
+	if(m_pData != nullptr && m_Size != 0)
 	{
 		// copy data 
 		memcpy(pData,m_pData,this->m_Size);

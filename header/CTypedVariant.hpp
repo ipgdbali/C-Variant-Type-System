@@ -3,23 +3,21 @@
 
 #include "CVariant.hpp"
 
-class CTypedVariant : private CVariant
+class CTypedVariant : protected CVariant
 {
 	private:
 		const char * m_DataTypeId;
 
 	protected:
-		bool write(const void * pData);
-		bool read(void * pData);
 
-		bool alloc(const char * typeId,size_t size);
-		void deAlloc();
 	public:
 
-		CTypedVariant(const char * typeId,size_t size);
+		CTypedVariant(const char * typeId,size_t size = 0);
 		virtual ~CTypedVariant();
 
 		const char * getTypeId() const;
+
+		
 };
 
 #endif

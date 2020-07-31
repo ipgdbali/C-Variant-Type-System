@@ -35,7 +35,7 @@ int main(int argc,char * argv[])
 	assert(var.read(&dummy) == true);
 
 	// dummy back 
-	assert(dummy == 10);
+	assert(dummy == 20);
 
 
 	return 0;

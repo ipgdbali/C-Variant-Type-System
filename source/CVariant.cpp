@@ -1,5 +1,10 @@
 #include "CVariant.hpp"
 
+void * CVariant::getPData()
+{
+	return this->m_pData;
+}
+
 /**
  * Default Constructor
  */
@@ -25,6 +30,9 @@ bool CVariant::alloc(size_t size)
 {
 	if(size == 0)
 		return false;
+
+	this->m_Size = size;
+
 	// release previous allocated memory
 	if(this->m_pData != nullptr)
 		this->deAlloc();

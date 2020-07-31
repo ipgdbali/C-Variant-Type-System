@@ -35,6 +35,8 @@ class CVariant
 
 	protected:
 
+		void * getPData();
+
 	public:
 
 		/**
@@ -56,6 +58,8 @@ class CVariant
 
 		/**
 		 * Allocate memory with size size
+		 * if it is been allocated, free before.
+		 * if size is 0 nothing done but return false
 		 * @return 
 		 * true if memory is successfully allocated otherwise false
 		 */

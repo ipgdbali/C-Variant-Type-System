@@ -38,6 +38,11 @@ class CVariant
 	public:
 
 		/**
+		 * Default Constructor
+		 */
+		CVariant();
+
+		/**
 		 * Construct a CVariant
 		 */
 		CVariant(size_t size);
@@ -50,16 +55,32 @@ class CVariant
 		virtual ~CVariant();
 
 		/**
-		 * Write to allocate dataSize
+		 * Allocate memory with size size
+		 * @return 
+		 * true if memory is successfully allocated otherwise false
 		 */
-		void write(const void * pData);
+		bool alloc(size_t size);
+
+		/**
+		 * Write to allocate dataSize
+		 * @return
+		 * if successfull write return true, otherwise false
+		 */
+		bool write(const void * pData);
 
 		/**
 		 * copy Data from CVariant into pData
 		 * return true if internal data is not null otherwise false,
 		 * no data is read.
+		 * @return
+		 * successfull write return true otherwise false
 		 */
-		void read(void * pData);
+		bool read(void * pData);
+
+		/**
+		 * Release memory allocated and set internal to null
+		 */
+		void deAlloc();
 
 		/**
 		 * Return size of data

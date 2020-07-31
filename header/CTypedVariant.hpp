@@ -3,17 +3,12 @@
 
 #include "CVariant.hpp"
 
-class CTypedVariantAdapter;
-
-class CTypedVariant : public CVariant
+class CTypedVariant : private CVariant
 {
 	private:
 		const char * m_DataTypeId;
 
 	protected:
-		void setDataTypeId(const char * dataTypeId);
-
-		friend CTypedVariantAdapter;
 
 	public:
 
@@ -21,28 +16,15 @@ class CTypedVariant : public CVariant
 		 * Default Constructor
 		 * Contruct TypedVariant with DataType is NotSet (0)
 		 */
-		CTypedVariant();
+		CTypedVariant(const char * typeId,size_t size);
+		virtual ~CTypedVariant();
 
-		//Copy Construtor
-		CTypedVariant(const CTypedVariant & value);
+		bool alloc(const char * typeId,size_t size);
 
-		//Move Construtor
-		CTypedVariant(CTypedVariant && value);
+		void deAlloc();
 
-		//Copy Operator
-		virtual CTypedVariant & operator = (const CTypedVariant & value);
+		const char * getTypeId() const;
 
-		//Move Operator
-		virtual CTypedVariant & operator = (CTypedVariant && value);
-
-		//Copy Set
-		virtual void set(const CTypedVariant & value);
-
-		//Move Set
-		virtual void set(CTypedVariant && value);
-
-		//Get data type identifier
-		const char * getDataTypeId() const;
 };
 
 #endif

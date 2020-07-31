@@ -1,9 +1,14 @@
 .PHONE : clean
 
-all : bin/CAdapterInt
+all : bin/CVariant bin/CTypedVariant
 
 bin/% : %.cpp
-	g++ -I./../header -L./../bin -o $@ $^ -lVariant
+	@printf "Compiling $@ ... "
+	@g++ -g -I./../header -L./../bin -o $@ $^ -lVariant
+	@printf "Done\n"
+	@printf "Executing $@ ... "
+	@$$@
+	@printf "Done\n"
 
 clean :
 	rm bin/*

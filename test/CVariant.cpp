@@ -1,52 +1,42 @@
+#include <iostream>
+
 #include "CVariant.hpp"
 #include <assert.h>
 
+using namespace std;
+
 int main(int argc,char * argv[])
 {
-	/**
-	 * Default Constructor Test Case
-	 */
-	CVariant variant;
-	int dummy;
+	CVariant var;
 
-	// Test Size
-	assert(variant.getSize() == 0);
+	int dummy = 10;
 
-	// Test variant.getData
-	assert(variant.getData(&dummy) == false);
-	
-	// Set Data
-	dummy = 10;
-	variant.alloc(&dummy,sizeof(dummy));
-	dummy = 20;
-	variant.getData(&dummy);
+	// get Size
+	assert(var.getSize() == 0);
+
+	// read
+	assert(var.read(&dummy) == false);
+
+	// dummy will no changes
 	assert(dummy == 10);
-	assert(variant.getSize() == sizeof(dummy));
 
-	// Clear Data
-	variant.clear();
-	assert(variant.getSize() == 0);
-	assert(variant.getData(&dummy) == false);
-
-	//Copy Contructor
+	// write and read
+	assert(var.write(&dummy) == false);
 	dummy = 20;
-	variant.alloc(&dummy,sizeof(int));
-	CVariant variant2(variant); // create variant2 based on variant
-	dummy = 30;
-	variant2.getData(&dummy);
+	assert(var.read(&dummy) == false);
+
 	assert(dummy == 20);
-	
-	//Copy Operator
-	dummy = 30;
-	variant.alloc(&dummy,sizeof(dummy));
-	variant2 = variant;
-	dummy = 20;
-	variant.getData(&dummy);
-	assert(dummy == 30);
+	// alloc
+	assert(var.alloc(sizeof(int)) == true);
 
-	//Move Constructor
-	
-	//Move Operator
+	// write success
+	assert(var.write(&dummy) == true);
+	dummy = 10;
+	assert(var.read(&dummy) == true);
+
+	// dummy back 
+	assert(dummy == 10);
+
 
 	return 0;
 }

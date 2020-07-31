@@ -9,22 +9,17 @@ class CTypedVariant : private CVariant
 		const char * m_DataTypeId;
 
 	protected:
+		bool write(const void * pData);
+		bool read(void * pData);
 
+		bool alloc(const char * typeId,size_t size);
+		void deAlloc();
 	public:
 
-		/**
-		 * Default Constructor
-		 * Contruct TypedVariant with DataType is NotSet (0)
-		 */
 		CTypedVariant(const char * typeId,size_t size);
 		virtual ~CTypedVariant();
 
-		bool alloc(const char * typeId,size_t size);
-
-		void deAlloc();
-
 		const char * getTypeId() const;
-
 };
 
 #endif

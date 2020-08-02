@@ -10,6 +10,17 @@ void * CVariant::getPData()
  */
 CVariant::CVariant() : CVariant(0)
 {
+
+}
+
+CVariant::CVariant(const CVariant & var)
+{
+	this->copy(var);
+}
+
+CVariant::CVariant(CVariant && var)
+{
+	this->move(std::move(var));
 }
 
 CVariant::CVariant(size_t size) :
@@ -24,6 +35,18 @@ CVariant::CVariant(size_t size) :
 CVariant::~CVariant()
 {
 	this->deAlloc();
+}
+
+CVariant & CVariant::operator = (const CVariant & var)
+{
+	this->copy(var);
+	return *this;
+}
+
+CVariant & CVariant::operator = (CVariant && var)
+{
+	this->move(std::move(var));
+	return *this;
 }
 
 bool CVariant::alloc(size_t size)
@@ -96,4 +119,18 @@ void CVariant::deAlloc()
 size_t CVariant::getSize() const
 {
 	return this->m_Size;
+}
+
+void CVariant::copy(const CVariant & var)
+{
+	this->alloc(var.m_Size);
+	this->write(var.m_pData);
+}
+
+void CVariant::move(CVariant && var)
+{
+	this->m_pData = var.m_pData;
+	this->m_Size = var.m_Size;
+	var.m_pData = nullptr;
+	var.m_Size = 0;
 }

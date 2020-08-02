@@ -45,6 +45,17 @@ class CVariant
 		CVariant();
 
 		/**
+		 * Copy Constructor
+		 */
+		CVariant(const CVariant & var);
+
+		/**
+		 * Move Constructor
+		 */
+		CVariant(CVariant && var);
+
+
+		/**
 		 * Construct a CVariant
 		 */
 		CVariant(size_t size);
@@ -55,6 +66,16 @@ class CVariant
 		 * resource
 		 */
 		virtual ~CVariant();
+
+		/**
+		 * Copy Operator
+		 */
+		CVariant & operator = (const CVariant & var);
+
+		/**
+		 * Move Operator
+		 */
+		CVariant & operator = (CVariant && var);
 
 		/**
 		 * Allocate memory with size size
@@ -89,8 +110,19 @@ class CVariant
 		/**
 		 * Return size of data
 		 * CVariant get is Size when method set is called.
+		 * If size == 0 no memory is allocated
 		 */
 		size_t getSize() const;
+
+		/**
+		 * Copy another instance of CVariant
+		 */
+		void copy(const CVariant & var);
+
+		/**
+		 * Move another instance to this
+		 */
+		void move(CVariant && var);
 
 };
 

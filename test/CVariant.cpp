@@ -37,6 +37,19 @@ int main(int argc,char * argv[])
 	// dummy back 
 	assert(dummy == 20);
 
+	//Copy Constructor
+	CVariant var2(var);
+	dummy = 10;
+	assert(var.read(&dummy) == true);
+	assert(dummy == 20);
+
+	dummy = 10;
+	assert(var2.write(&dummy) == true);
+	assert(var2.read(&dummy) == true);
+	assert(dummy == 10);
+
+	assert(var.read(&dummy) == true);
+	assert(dummy == 20);
 
 	return 0;
 }

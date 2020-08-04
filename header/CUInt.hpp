@@ -14,6 +14,9 @@ class CUInt : public CTypedVariant
 
 		void set(unsigned int val);
 		unsigned int get();
+
+		CUInt & operator = (unsigned int val);
+		operator unsigned int ();
 };
 
 #endif

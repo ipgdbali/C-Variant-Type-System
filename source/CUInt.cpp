@@ -18,3 +18,14 @@ unsigned int CUInt::get()
 	return dummy;
 }
 
+CUInt & CUInt::operator = (unsigned int val)
+{
+	this->set(val);
+	return *this;
+}
+
+CUInt::operator unsigned int()
+{
+	return this->get();
+}
+

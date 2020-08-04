@@ -12,6 +12,8 @@ CInt::CInt(int val) :
 
 void CInt::set(int val)
 {
+	if(this->getPData() == nullptr && this->getSize() == 0)
+		this->alloc(sizeof(int));
 	this->write(&val);
 }
 
@@ -20,5 +22,16 @@ int CInt::get()
 	int dummy;
 	this->read(&dummy);
 	return dummy;
+}
+
+CInt & CInt::operator = (int val)
+{
+	this->set(val);
+	return *this;
+}
+
+CInt::operator int ()
+{
+	return this->get();
 }
 

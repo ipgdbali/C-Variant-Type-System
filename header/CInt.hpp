@@ -15,6 +15,9 @@ class CInt : public CTypedVariant
 
 		void set(int val);
 		int get();
+
+		CInt & operator = (int val);
+		operator int ();
 };
 
 #endif

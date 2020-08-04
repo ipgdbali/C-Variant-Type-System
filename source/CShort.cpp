@@ -5,7 +5,7 @@ CShort::CShort() : CShort(0)
 }
 
 CShort::CShort(short val) :
-	CTypedVariant("DT_INT",sizeof(short))
+	CTypedVariant("DT_SHORT",sizeof(short))
 {
 	this->set(val);
 }

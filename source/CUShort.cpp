@@ -5,7 +5,7 @@ CUShort::CUShort() : CUShort(0)
 }
 
 CUShort::CUShort(unsigned short val) :
-	CTypedVariant("DT_INT",sizeof(unsigned short))
+	CTypedVariant("DT_USHORT",sizeof(unsigned short))
 {
 	this->set(val);
 }

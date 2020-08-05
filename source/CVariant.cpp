@@ -129,5 +129,5 @@ void CVariant::copy(const CVariant & var)
 void CVariant::move(CVariant && var)
 {
 	std::swap(m_pData,var.m_pData);
-	std::swap(m_pData,var.m_Size);
+	std::swap(m_Size,var.m_Size);
 }

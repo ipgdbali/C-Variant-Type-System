@@ -10,14 +10,20 @@ CTypedVariant::CTypedVariant() : CVariant()
 	this->m_DataTypeId = nullptr;
 }
 
-CTypedVariant::CTypedVariant(const CTypedVariant & var)
+CTypedVariant::CTypedVariant(const CTypedVariant & var,const char * TypeId)
 {
-	this->copy(var);
+	if(TypeId == nullptr || (TypeId != nullptr && TypeId == var.getTypeId()))
+		this->copy(var);
+	else
+		throw domain_error("Type Mismatch");
 }
 
-CTypedVariant::CTypedVariant(CTypedVariant && var)
+CTypedVariant::CTypedVariant(CTypedVariant && var,const char * TypeId)
 {
-	this->move(std::move(var));
+	if(TypeId == nullptr || (TypeId != nullptr && TypeId == var.getTypeId()))
+		this->move(std::move(var));
+	else
+		throw domain_error("Type Mismatch");
 }
 
 CTypedVariant::~CTypedVariant()
@@ -26,13 +32,27 @@ CTypedVariant::~CTypedVariant()
 
 CTypedVariant & CTypedVariant::operator = (const CTypedVariant & var)
 {
-	this->copy(var);
+	if(
+		this->getTypeId() == nullptr || 
+		(this->getTypeId() != nullptr && this->getTypeId() == var.getTypeId())
+	)
+		this->copy(var);
+	else
+		throw domain_error("Type Mismatch");
+
 	return *this;
 }
 
 CTypedVariant & CTypedVariant::operator = (CTypedVariant && var)
 {
-	this->move(std::move(var));
+	if(
+		this->getTypeId() == nullptr || 
+		(this->getTypeId() != nullptr && this->getTypeId() == var.getTypeId())
+	)
+		this->move(std::move(var));
+	else
+		throw domain_error("Type Mismatch");
+
 	return *this;
 }
 
@@ -50,7 +70,6 @@ void CTypedVariant::copy(const CTypedVariant & var)
 void CTypedVariant::move(CTypedVariant && var)
 {
 	((CVariant*)this)->move(std::move(var));
-	this->m_DataTypeId = var.m_DataTypeId;
-	var.m_DataTypeId = nullptr;
+	std::swap(m_DataTypeId,var.m_DataTypeId);
 }
 

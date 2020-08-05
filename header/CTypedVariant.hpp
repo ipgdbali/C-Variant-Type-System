@@ -28,12 +28,12 @@ class CTypedVariant : protected CVariant
 		/**
 		 * Copy Constructor
 		 */
-		CTypedVariant(const CTypedVariant & var);
+		CTypedVariant(const CTypedVariant & var,const char * TypeId = nullptr);
 
 		/**
 		 * Move Constructor
 		 */
-		CTypedVariant(CTypedVariant && var);
+		CTypedVariant(CTypedVariant && var,const char * TypedId = nullptr);
 
 		/**
 		 * Virtual destructor

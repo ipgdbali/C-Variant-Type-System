@@ -29,6 +29,7 @@ class CValueType : public CTypedVariant
 		T get();
 
 		CValueType & operator = (T val);
+
 		operator T ();
 };
 
@@ -39,7 +40,7 @@ typedef CValueType<unsigned short> CUShort;
 typedef CValueType<char> CChar;
 typedef CValueType<unsigned char> CUChar;
 typedef CValueType<float> CFloat;
-typedef CValueType<float> CDouble;
+typedef CValueType<double> CDouble;
 typedef CValueType<bool> CBool;
 
 #endif

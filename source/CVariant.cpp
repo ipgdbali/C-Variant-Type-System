@@ -10,7 +10,6 @@ void * CVariant::getPData()
  */
 CVariant::CVariant() : CVariant(0)
 {
-
 }
 
 CVariant::CVariant(const CVariant & var)
@@ -129,8 +128,6 @@ void CVariant::copy(const CVariant & var)
 
 void CVariant::move(CVariant && var)
 {
-	this->m_pData = var.m_pData;
-	this->m_Size = var.m_Size;
-	var.m_pData = nullptr;
-	var.m_Size = 0;
+	std::swap(m_pData,var.m_pData);
+	std::swap(m_pData,var.m_Size);
 }

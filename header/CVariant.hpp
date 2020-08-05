@@ -35,17 +35,24 @@ class CVariant
 
 	protected:
 
+		/**
+		 * Return internal data
+		 */
 		void * getPData();
 
 	public:
 
 		/**
 		 * Default Constructor
+		 * Create CVariant instance without allocating memory CVariant(0)
 		 */
 		CVariant();
 
 		/**
 		 * Copy Constructor
+		 * Create duplicate copy from another CVariant instance
+		 * Memory is allocated and data is write from supplied
+		 * This method call copy(const CVariant & var)
 		 */
 		CVariant(const CVariant & var);
 
@@ -56,7 +63,8 @@ class CVariant
 
 
 		/**
-		 * Construct a CVariant
+		 * Construct a CVariant with size size
+		 * If size is 0, no memory is allocated. pData is null
 		 */
 		CVariant(size_t size);
 

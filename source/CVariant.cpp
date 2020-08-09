@@ -48,34 +48,47 @@ CVariant & CVariant::operator = (CVariant && var)
 	return *this;
 }
 
+bool CVariant::isNull()
+{
+	return this->m_pData == nullptr && this->m_Size == 0;
+}
+
+bool CVariant::isNotNull()
+{
+	return !(this->m_pData == nullptr && this->m_Size == 0);
+}
+
 bool CVariant::alloc(size_t size)
 {
 	if(size == 0)
 		return false;
 
-	this->m_Size = size;
-
 	// release previous allocated memory
-	if(this->m_pData != nullptr)
+	if(!this->isNull())
 		this->deAlloc();
 
-	// reserve memory 
-	this->m_pData = calloc(1,size);
+	this->m_Size = size;
+
+	// allocate memory 
+	this->m_pData = (unsigned char*)calloc(1,this->getSize());
 
 	// return status
-	if(this->m_pData != nullptr)
+	if(!this->isNull())
 		return true; // success
 	else
 		return false; // unsuccessfull
 }
 
-bool CVariant::write(const void * pData)
+bool CVariant::write(const void * pData,size_t size,size_t offset)
 {
-	// if pData has been allocated before
-	if(this->m_pData != nullptr && this->m_Size != 0)
+	if(size == 0)
+		size = this->getSize();
+
+	// if pData has been allocated and offset + size dont exceeded allocated
+	if(!this->isNull() && (offset + size <= this->getSize()))
 	{
 		// copy data
-		memcpy(this->m_pData,pData,this->m_Size);
+		memcpy(this->m_pData + offset,pData,size);
 
 		// return true
 		return true;
@@ -85,13 +98,17 @@ bool CVariant::write(const void * pData)
 		return false;
 }
 
-bool CVariant::read(void * pData)
+bool CVariant::read(void * pData,size_t size,size_t offset)
 {
+	//If size is not specified, set all alocated
+	if(size == 0)
+		size = this->getSize();
+
 	// if pData has been allocated before
-	if(m_pData != nullptr && m_Size != 0)
+	if(!this->isNull() && (offset + size <= this->getSize()))
 	{
 		// copy data 
-		memcpy(pData,m_pData,this->m_Size);
+		memcpy(pData,m_pData + offset,size);
 
 		// return true
 		return true;
@@ -104,7 +121,7 @@ bool CVariant::read(void * pData)
 void CVariant::deAlloc()
 {
 	// only de allocate memory if pData is null ptr and Size != 0
-	if(this->m_pData != nullptr && this->m_Size != 0)
+	if(!this->isNull() && this->getSize() != 0)
 	{
 		// release memory
 		free(this->m_pData);

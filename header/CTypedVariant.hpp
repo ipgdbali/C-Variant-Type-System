@@ -14,19 +14,26 @@
 class CTypedVariant : protected CVariant
 {
 	private:
+
 		// Store data type of Variant
-		const char * m_DataTypeId;
+		const char * m_TypeId;
 
 	protected:
-		CTypedVariant(const char * const typeId,size_t size = 0);
 
-	public:
+		/**
+		 * Create CTypedVariant with type typeId and sizes size
+		 * Also function as default constructor  ?
+		 */
+		CTypedVariant(const char * typeId = nullptr,size_t size = 0);
 
-		//Default Constructor
-		CTypedVariant();
+		/**
+		 * Virtual destructor
+		 */
+		virtual ~CTypedVariant();
 
 		/**
 		 * Copy Constructor
+		 * Used to check var with type typeid
 		 */
 		CTypedVariant(const CTypedVariant & var,const char * TypeId = nullptr);
 
@@ -35,33 +42,28 @@ class CTypedVariant : protected CVariant
 		 */
 		CTypedVariant(CTypedVariant && var,const char * TypedId = nullptr);
 
-		/**
-		 * Virtual destructor
-		 */
-		virtual ~CTypedVariant();
+		void setTypeId(const char * typeId);
+
+	public:
+
 
 		/**
-		 * Copy Operator
+		 * Copy CTypedVariant to this
+		 * if reverseType is true, var should have the same type with this.
+		 * @return 
+		 *	true - if copy is succeeded otherwise false
 		 */
-		CTypedVariant & operator = (const CTypedVariant & var);
+		bool copy(const CTypedVariant & var,bool reserveType=false);
+
 		/**
-		 * Move operator
+		 * Move CTypedVariant var to this and set var to null
 		 */
-		CTypedVariant & operator = (CTypedVariant && var);
+		bool move(CTypedVariant && var,bool reverseType=false);
 
 		/**
 		 * Return TypedId of CTypedVariant
 		 */
 		const char * getTypeId() const;
-
-		/**
-		 * Copy CTypedVariant to this
-		 */
-		void copy(const CTypedVariant & var);
-		/**
-		 * Move CTypedVariant var to this and set var to null so cannot be destroyed
-		 */
-		void move(CTypedVariant && var);
 		
 };
 

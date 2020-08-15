@@ -1,23 +1,31 @@
 #include "CValueType.hpp"
 
 template <typename T>
-CValueType<T>::CValueType() : CValueType<T>(0)
+CValueType<T>::CValueType() :
+	CStrongTyped(TYPE_ID,sizeof(T))
 {
 }
 
 template <typename T>
-CValueType<T>::CValueType(const CTypedVariant & val) : CTypedVariant(val,TYPE_ID)
+CValueType<T>::CValueType(const CTypedVariant & var) 
+	: CStrongTyped(var,TYPE_ID)
 {
 }
 
 template <typename T>
-CValueType<T>::CValueType(CTypedVariant && val) : CTypedVariant(val,TYPE_ID)
+CValueType<T>::CValueType(const CStrongTyped & var) 
+	: CStrongTyped(var,TYPE_ID)
 {
 }
 
 template <typename T>
-CValueType<T>::CValueType(T val) :
-	CTypedVariant(TYPE_ID,sizeof(T))
+CValueType<T>::CValueType(const CValueType & var) 
+	: CStrongTyped(var,nullptr)
+{
+}
+
+template <typename T>
+CValueType<T>::CValueType(T val) : CValueType()
 {
 	this->set(val);
 }
@@ -25,11 +33,6 @@ CValueType<T>::CValueType(T val) :
 template <typename T>
 void CValueType<T>::set(T val)
 {
-	if(this->getPData() == nullptr && this->getSize() == 0)
-	{
-		this->deAlloc();
-		this->alloc(sizeof(T));
-	}
 	this->write(&val);
 }
 
@@ -90,4 +93,3 @@ template class CValueType<double>;
 template <>
 const char * const CValueType<bool>::TYPE_ID = "DT_BOOL";
 template class CValueType<bool>;
-

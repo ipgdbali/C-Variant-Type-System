@@ -114,11 +114,16 @@ class CVariant
 		 */
 		bool isNull();
 
+		/**
+		 * Test condition whether memory has been allocated
+		 * If memory has been successfully allocated,
+		 * pData is not null and this method return true
+		 */
 		bool isNotNull();
 
 		/**
 		 * Allocate memory with sizes size
-		 * if memory has been allocated, memory is freed.
+		 * if memory has been allocated, memory is freed by calling deAlloc
 		 * if size == 0 nothing done, return false.
 		 * sucessfully allocated memory return true
 		 */
@@ -127,13 +132,15 @@ class CVariant
 		/**
 		 * Write data to Internal memory with sizes size and internal offsets
 		 * offset.
+		 * If size == 0 then this->getSize() is used
 		 */
 		bool write(const void * pData,size_t size = 0,size_t offset = 0);
 
 		/**
 		 * copy Data from CVariant into pData
 		 * return true if internal data is not null otherwise false,
-		 * no data is read.
+		 * and no data is read.
+		 * if size == 0 then size = this->getSize();
 		 * @return
 		 * successfull write return true otherwise false
 		 */
@@ -153,6 +160,7 @@ class CVariant
 
 		/**
 		 * Copy another instance of CVariant
+		 * If this still not yet allocated, copy will alocated it.
 		 */
 		void copy(const CVariant & var);
 

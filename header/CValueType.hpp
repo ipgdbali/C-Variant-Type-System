@@ -1,36 +1,35 @@
 #ifndef CVALUETYPE_HPP
 #define CVALUETYPE_HPP
 
-#include "CTypedVariant.hpp" 
-
+#include "CStrongTyped.hpp" 
 
 template <typename T>
-class CValueType : public CTypedVariant
+class CValueType : public CStrongTyped
 {
-	private:
-
-	protected:
-
 	public:
 
 		static const char * const TYPE_ID;
 
+		// Default Constructor
 		CValueType();
 
-		CValueType(const CTypedVariant & val);
-		CValueType(CTypedVariant && val);
-
-		// TODO :
-		// test assigment operator overloading for CTypedVariant 
+		// setter
+		CValueType(const CTypedVariant & var);
+		CValueType(const CStrongTyped & var);
+		CValueType(const CValueType & var);
 
 		CValueType(T val);
-
+		CValueType & operator = (T val);
 		void set(T val);
+
+		// getter
+		operator T ();
 		T get();
 
-		CValueType & operator = (T val);
+	protected:
 
-		operator T ();
+	private:
+
 };
 
 typedef CValueType<int> CInt;

@@ -7,11 +7,13 @@ void * CVariant::getPData()
 
 /**
  * Default Constructor
+ * Init nullptr internal data with size 0
  */
 CVariant::CVariant() : CVariant(0)
 {
 }
 
+// Copy Constructor
 CVariant::CVariant(const CVariant & var)
 {
 	this->copy(var);
@@ -85,7 +87,7 @@ bool CVariant::write(const void * pData,size_t size,size_t offset)
 		size = this->getSize();
 
 	// if pData has been allocated and offset + size dont exceeded allocated
-	if(!this->isNull() && (offset + size <= this->getSize()))
+	if(this->isNotNull() && (offset + size <= this->getSize()))
 	{
 		// copy data
 		memcpy(this->m_pData + offset,pData,size);
@@ -139,7 +141,8 @@ size_t CVariant::getSize() const
 
 void CVariant::copy(const CVariant & var)
 {
-	this->alloc(var.m_Size);
+	this->deAlloc();
+	this->alloc(var.m_Size); // automatic deletin of old 
 	this->write(var.m_pData);
 }
 

@@ -1,75 +1,56 @@
 #include "CTypedVariant.hpp"
 
-CTypedVariant::CTypedVariant(const char * const typeId,size_t size) : 
-	CVariant(size),m_DataTypeId(typeId)
+CTypedVariant::CTypedVariant(const char * typeId,size_t size) : 
+	CVariant(size),m_TypeId(typeId)
 {
-}
-
-CTypedVariant::CTypedVariant() : CVariant()
-{
-	this->m_DataTypeId = nullptr;
 }
 
 CTypedVariant::CTypedVariant(const CTypedVariant & var,const char * TypeId)
 {
-	if(TypeId == nullptr || (TypeId != nullptr && TypeId == var.getTypeId()))
-		this->copy(var);
-	else
-		throw domain_error("Type Mismatch");
+	this->copy(var,false);
 }
+
 
 CTypedVariant::CTypedVariant(CTypedVariant && var,const char * TypeId)
 {
-	if(TypeId == nullptr || (TypeId != nullptr && TypeId == var.getTypeId()))
-		this->move(std::move(var));
-	else
-		throw domain_error("Type Mismatch");
+	this->move(std::move(var),false);
 }
 
 CTypedVariant::~CTypedVariant()
 {
 }
 
-CTypedVariant & CTypedVariant::operator = (const CTypedVariant & var)
+void CTypedVariant::setTypeId(const char * typeId)
 {
-	if(
-		this->getTypeId() == nullptr || 
-		(this->getTypeId() != nullptr && this->getTypeId() == var.getTypeId())
-	)
-		this->copy(var);
-	else
-		throw domain_error("Type Mismatch");
-
-	return *this;
+	this->m_TypeId = typeId;
 }
 
-CTypedVariant & CTypedVariant::operator = (CTypedVariant && var)
+bool CTypedVariant::copy(const CTypedVariant & var,bool reverseType)
 {
-	if(
-		this->getTypeId() == nullptr || 
-		(this->getTypeId() != nullptr && this->getTypeId() == var.getTypeId())
-	)
-		this->move(std::move(var));
+	if(this->getTypeId() != nullptr && reverseType && this->getTypeId() != var.getTypeId())
+		return false;
 	else
-		throw domain_error("Type Mismatch");
+	{
+		CVariant::copy(var);
+		this->m_TypeId = var.getTypeId();
+		return true;
+	}
+}
 
-	return *this;
+bool CTypedVariant::move(CTypedVariant && var,bool reverseType)
+{
+	if(this->getTypeId() != nullptr && reverseType && this->getTypeId() != var.getTypeId())
+		return false;
+	else
+	{
+		CVariant::move(std::move(var));
+		std::swap(this->m_TypeId,var.m_TypeId);
+		return true;
+	}
 }
 
 const char * CTypedVariant::getTypeId() const
 {
-	return this->m_DataTypeId;
-}
-
-void CTypedVariant::copy(const CTypedVariant & var)
-{
-	((CVariant*)this)->copy(var);
-	this->m_DataTypeId = var.m_DataTypeId;
-}
-
-void CTypedVariant::move(CTypedVariant && var)
-{
-	((CVariant*)this)->move(std::move(var));
-	std::swap(m_DataTypeId,var.m_DataTypeId);
+	return this->m_TypeId;
 }
 

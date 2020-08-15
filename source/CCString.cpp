@@ -5,18 +5,18 @@ CCString::CCString() : CCString(nullptr)
 }
 
 CCString::CCString(const char * val) :
-	CTypedVariant("DT_CSTRING")
+	CStrongTyped("DT_CSTRING")
 {
 	this->set(val);
 }
 
-CCString::CCString(const CTypedVariant & val) :
-	CTypedVariant(val,"DT_CSTRING")
+CCString::CCString(const CStrongTyped & val) :
+	CStrongTyped(val,"DT_CSTRING")
 {
 }
 
-CCString::CCString(CTypedVariant && val) :
-	CTypedVariant(val,"DT_CSTRING")
+CCString::CCString(CStrongTyped && val) :
+	CStrongTyped(val,"DT_CSTRING")
 {
 }
 

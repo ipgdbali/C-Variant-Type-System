@@ -2,7 +2,7 @@
 
 all : bin/libVariant.a
 
-bin/libVariant.a : bin/CVariant.o bin/CTypedVariant.o bin/CStrongTyped.o bin/CValueType.o
+bin/libVariant.a : bin/CVariant.o bin/CTypedVariant.o bin/CStrongTyped.o bin/CReferenceType.o bin/CCString.o
 	@printf "Making library $@ ... "
 	@ar rcs $@ $^
 	@printf "done\n"

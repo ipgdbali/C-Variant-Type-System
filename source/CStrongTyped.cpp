@@ -1,9 +1,5 @@
 #include "CStrongTyped.hpp"
 
-CStrongTyped::CStrongTyped() : CTypedVariant()
-{
-}
-
 CStrongTyped::CStrongTyped(const char * typeId,size_t size) 
 	: CTypedVariant(typeId,size)
 {

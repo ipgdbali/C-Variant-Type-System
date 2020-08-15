@@ -1,9 +1,9 @@
 #ifndef CCSTRING_HPP
 #define CCSTRING_HPP
 
-#include "CTypedVariant.hpp" 
+#include "CStrongTyped.hpp" 
 
-class CCString : public CTypedVariant
+class CCString : public CStrongTyped
 {
 	private:
 
@@ -14,10 +14,10 @@ class CCString : public CTypedVariant
 		CCString(const char * val);
 
 		// Copy Constructor
-		CCString(const CTypedVariant & val);
+		CCString(const CStrongTyped & val);
 
 		// Move Construtor
-		CCString(CTypedVariant && val);
+		CCString(CStrongTyped && val);
 
 
 		void set(const char * val);

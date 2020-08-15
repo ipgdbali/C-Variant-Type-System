@@ -7,9 +7,6 @@ class CStrongTyped : public CTypedVariant
 {
 	public:
 
-		// Default Constructor
-		CStrongTyped();
-
 		// Constructor
 		CStrongTyped(const char * typeId = nullptr,size_t size = 0);
 

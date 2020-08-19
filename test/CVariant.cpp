@@ -29,7 +29,7 @@ void testAlloc(CVariant & var)
 void testWriteAndRead(CVariant & var,bool isNull = false)
 {
 	// var should not be null
-	testNull(var,false);
+	testNull(var,isNull);
 
 	int dummy;
 
@@ -41,7 +41,8 @@ void testWriteAndRead(CVariant & var,bool isNull = false)
 	// Read
 	dummy = 20; // set new value to be stored
 	assert(var.read(&dummy) == !isNull); // set var to new value
-	assert(dummy == 10); // should be back to value stored
+	if(!isNull)
+		assert(dummy == 10); // should be back to value stored
 }
 
 void testUnRelated(CVariant & var1,CVariant & var2)
@@ -79,7 +80,7 @@ void testDefaultConstructor()
 {
 	CVariant var; // test default construtor
 
-	testNull(var,false); // var should be null
+	testNull(var,true); // var should be null
 	assert(var.getSize() == 0); // No memory means no size
 
 	int dummy;

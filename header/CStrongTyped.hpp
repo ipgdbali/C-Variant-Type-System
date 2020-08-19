@@ -10,7 +10,9 @@ class CStrongTyped : public CTypedVariant
 		// Constructor
 		CStrongTyped(const char * typeId = nullptr,size_t size = 0);
 
+		// ********************
 		// ** Copy Operation ** 
+		// ********************
 		
 		// Copy CTypedVariant
 		CStrongTyped(const CTypedVariant & var,const char * typeId = nullptr);
@@ -21,9 +23,11 @@ class CStrongTyped : public CTypedVariant
 		CStrongTyped & operator = (const CStrongTyped & var);
 
 		// Copy Method
-		bool copy(const CTypedVariant & var);
+		void copy(const CTypedVariant & var);
 
+		// ********************
 		// ** Move Operation **
+		// ********************
 		
 		// Moving CTypedVariant
 		CStrongTyped(CTypedVariant && var,const char * typeId = nullptr);
@@ -34,7 +38,7 @@ class CStrongTyped : public CTypedVariant
 		CStrongTyped & operator = (CStrongTyped && var);
 
 		// Move Method  
-		bool move(CTypedVariant && var);
+		void move(CTypedVariant && var);
 
 		// Runtime Type setter
 		void setTypeId(const char * typeId);

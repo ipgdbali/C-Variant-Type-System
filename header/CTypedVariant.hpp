@@ -35,12 +35,12 @@ class CTypedVariant : protected CVariant
 		 * Copy Constructor
 		 * Used to check var with type typeid
 		 */
-		CTypedVariant(const CTypedVariant & var,const char * TypeId = nullptr);
+		CTypedVariant(const CTypedVariant & var,const char * typeId = nullptr);
 
 		/**
 		 * Move Constructor
 		 */
-		CTypedVariant(CTypedVariant && var,const char * TypedId = nullptr);
+		CTypedVariant(CTypedVariant && var,const char * typedId = nullptr);
 
 		void setTypeId(const char * typeId);
 

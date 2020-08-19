@@ -5,15 +5,21 @@ CTypedVariant::CTypedVariant(const char * typeId,size_t size) :
 {
 }
 
-CTypedVariant::CTypedVariant(const CTypedVariant & var,const char * TypeId)
+CTypedVariant::CTypedVariant(const CTypedVariant & var,const char * typeId) : 
+	CVariant(var),m_TypeId(typeId)
 {
-	this->copy(var,false);
+	if(typeId != nullptr && typeId != var.getTypeId())
+		throw std::domain_error("Type Mismatch");
 }
 
 
-CTypedVariant::CTypedVariant(CTypedVariant && var,const char * TypeId)
+CTypedVariant::CTypedVariant(CTypedVariant && var,const char * typeId) :
+	CVariant(std::move(var)),m_TypeId(nullptr)
 {
-	this->move(std::move(var),false);
+	if(typeId == nullptr || typeId == var.getTypeId())
+		this->m_TypeId = typeId;
+	else
+		throw std::domain_error("Type Mismatch");
 }
 
 CTypedVariant::~CTypedVariant()

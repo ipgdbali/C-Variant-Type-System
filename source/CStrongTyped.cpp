@@ -5,8 +5,8 @@ CStrongTyped::CStrongTyped(const char * typeId,size_t size)
 {
 }
 
-CStrongTyped::CStrongTyped(const CTypedVariant & var,const char * typeId) 
-	: CTypedVariant(var,typeId)
+CStrongTyped::CStrongTyped(const CTypedVariant & var,const char * typeId) :
+	CTypedVariant(var,typeId)
 {
 }
 
@@ -27,9 +27,10 @@ CStrongTyped & CStrongTyped::operator = (const CStrongTyped & var)
 	return *this;
 }
 
-bool CStrongTyped::copy(const CTypedVariant & var)
+void CStrongTyped::copy(const CTypedVariant & var)
 {
-	return CTypedVariant::copy(var,true);
+	if(!CTypedVariant::copy(var,true))
+		throw domain_error("Type Mismatch");
 }
 
 CStrongTyped::CStrongTyped(CTypedVariant && var,const char * typeId) 
@@ -54,9 +55,10 @@ CStrongTyped & CStrongTyped::operator = (CStrongTyped && var)
 	return *this;
 }
 
-bool CStrongTyped::move(CTypedVariant && var)
+void CStrongTyped::move(CTypedVariant && var)
 {
-	return CTypedVariant::move(std::move(var),true);
+	if(!CTypedVariant::move(std::move(var),true))
+		throw domain_error("Type Mismatch");
 }
 
 void CStrongTyped::setTypeId(const char * typeId)

@@ -1,22 +1,19 @@
 #include "CCString.hpp"
 
-CCString::CCString() : CCString(nullptr)
+CCString::CCString() : CStrongTyped(TYPE_ID,0)
 {
 }
 
-CCString::CCString(const char * val) :
-	CStrongTyped("DT_CSTRING")
+CCString::CCString(const char * val) : CStrongTyped(TYPE_ID,0)
 {
 	this->set(val);
 }
 
-CCString::CCString(const CStrongTyped & val) :
-	CStrongTyped(val,"DT_CSTRING")
+CCString::CCString(const CTypedVariant & val) : CStrongTyped(val)
 {
 }
 
-CCString::CCString(CStrongTyped && val) :
-	CStrongTyped(val,"DT_CSTRING")
+CCString::CCString(CTypedVariant && val) : CStrongTyped(std::move(val))
 {
 }
 
@@ -25,6 +22,12 @@ void CCString::set(const char * val)
 	this->deAlloc();
 	this->alloc(strlen(val) + 1);
 	this->write(val);
+}
+
+CCString & CCString::operator = (const char * val)
+{
+	this->set(val);
+	return * this;
 }
 
 void CCString::get(char * val)
@@ -37,8 +40,4 @@ size_t CCString::length() const
 	return this->getSize() - 1;
 }
 
-CCString::operator const char *()
-{
-	return (const char *)this->getPData();
-}
-
+const char * const CCString::TYPE_ID = "DT_STRING";

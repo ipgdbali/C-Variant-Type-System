@@ -20,6 +20,8 @@ class CTypedVariant : protected CVariant
 
 	protected:
 
+	public:
+
 		/**
 		 * Create CTypedVariant with type typeId and sizes size
 		 * Also function as default constructor  ?
@@ -42,11 +44,6 @@ class CTypedVariant : protected CVariant
 		 */
 		CTypedVariant(CTypedVariant && var,const char * typedId = nullptr);
 
-		void setTypeId(const char * typeId);
-
-	public:
-
-
 		/**
 		 * Copy CTypedVariant to this
 		 * if reverseType is true, var should have the same type with this.
@@ -60,6 +57,10 @@ class CTypedVariant : protected CVariant
 		 */
 		bool move(CTypedVariant && var,bool reverseType=false);
 
+		/**
+		 * Set TypeId
+		 */
+		void setTypeId(const char * typeId);
 		/**
 		 * Return TypedId of CTypedVariant
 		 */

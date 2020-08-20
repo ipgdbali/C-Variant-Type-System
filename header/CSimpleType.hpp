@@ -13,19 +13,15 @@ class CSimpleType : public CStrongTyped
 		// Default Constructor
 		CSimpleType();
 
-		// setter
+		// Copy Constructor
 		CSimpleType(const CTypedVariant & var);
 
-		/*
-		CSimpleType(const CStrongTyped & var);
-		CSimpleType(const CSimpleType & var);
-		*/
-
+		// Setter
 		CSimpleType(T val);
 		CSimpleType & operator = (T val);
 		virtual void set(T val);
 
-		// getter
+		// Getter
 		operator T ();
 		virtual T get();
 

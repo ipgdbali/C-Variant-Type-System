@@ -142,7 +142,7 @@ size_t CVariant::getSize() const
 void CVariant::copy(const CVariant & var)
 {
 	this->deAlloc();
-	this->alloc(var.m_Size); // automatic deletin of old 
+	this->alloc(var.m_Size);
 	this->write(var.m_pData);
 }
 

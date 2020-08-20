@@ -12,20 +12,6 @@ CSimpleType<T>::CSimpleType(const CTypedVariant & var) :
 {
 }
 
-/**
-template <typename T>
-CSimpleType<T>::CSimpleType(const CStrongTyped & var) 
-	: CStrongTyped(var,TYPE_ID)
-{
-}
-
-template <typename T>
-CSimpleType<T>::CSimpleType(const CSimpleType & var) 
-	: CStrongTyped(var,TYPE_ID)
-{
-}
-**/
-
 template <typename T>
 CSimpleType<T>::CSimpleType(T val) : CSimpleType()
 {

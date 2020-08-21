@@ -10,30 +10,26 @@ CStrongTyped::CStrongTyped(const char * typeId,size_t size)
 // Copy Operation
 //
 
-// * CStrongTyped
-
 // Copy Constructor
+
 CStrongTyped::CStrongTyped(const CStrongTyped & var,const char * typeId) :
 	CTypedVariant(var,typeId)
 {
 }
 
-// Copy Operator
-CStrongTyped & CStrongTyped::operator = (const CStrongTyped & var)
-{
-	this->copy(var);
-	return *this;
-}
-
-// * CTypedVariant
-
-// Copy Constructor
 CStrongTyped::CStrongTyped(const CTypedVariant & var,const char * typeId) :
 	CTypedVariant(var,typeId)
 {
 }
 
 // Copy Operator
+
+CStrongTyped & CStrongTyped::operator = (const CStrongTyped & var)
+{
+	this->copy(var);
+	return *this;
+}
+
 CStrongTyped & CStrongTyped::operator = (const CTypedVariant & var)
 {
 	this->copy(var);
@@ -47,13 +43,28 @@ void CStrongTyped::copy(const CTypedVariant & var)
 		throw domain_error("Type Mismatch");
 }
 
+//
+// Move Operation
+//
+
 // Move Constructor
+CStrongTyped::CStrongTyped(CStrongTyped && var,const char * typeId) 
+	: CTypedVariant(std::move(var),typeId)
+{
+}
+
 CStrongTyped::CStrongTyped(CTypedVariant && var,const char * typeId) 
 	: CTypedVariant(std::move(var),typeId)
 {
 }
 
 // Move operator
+CStrongTyped & CStrongTyped::operator = (CStrongTyped && var)
+{
+	this->move(std::move(var));
+	return *this;
+}
+
 CStrongTyped & CStrongTyped::operator = (CTypedVariant && var)
 {
 	this->move(std::move(var));

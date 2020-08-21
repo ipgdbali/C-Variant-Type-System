@@ -11,7 +11,7 @@
  * The only avaiable Constructor is made to Copy or move another instance is as  operator overloading supplied too.
  *
  */
-class CTypedVariant : protected CVariant
+class CTypedVariant : public CVariant
 {
 	private:
 

@@ -14,19 +14,30 @@ class CStrongTyped : protected CTypedVariant
 		// Copy Operation
 		// 
 
-		// CStrongTyped
+		// Copy Constructor
 		CStrongTyped(const CStrongTyped & var, const char * typeId = nullptr);
-		CStrongTyped & operator = (const CStrongTyped & var);
-
-		// CTypedVariant
 		CStrongTyped(const CTypedVariant & var,const char * typeId = nullptr);
+
+		// Copy Operator
+		CStrongTyped & operator = (const CStrongTyped & var);
 		CStrongTyped & operator = (const CTypedVariant & var);
 
+		// Copy Method
 		void copy(const CTypedVariant & var);
 		
+		//
 		// Move Operation
+		//
+
+		// Move Constructor
+		CStrongTyped(CStrongTyped && var,const char * typeId = nullptr);
 		CStrongTyped(CTypedVariant && var,const char * typeId = nullptr);
+
+		// Move Operator
+		CStrongTyped & operator = (CStrongTyped && var);
 		CStrongTyped & operator = (CTypedVariant && var);
+
+		// Move Method
 		void move(CTypedVariant && var);
 
 		// Runtime Type set & getter

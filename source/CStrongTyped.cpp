@@ -1,9 +1,31 @@
 #include "CStrongTyped.hpp"
 
+// Constructor
 CStrongTyped::CStrongTyped(const char * typeId,size_t size) 
 	: CTypedVariant(typeId,size)
 {
 }
+
+//
+// Copy Operation
+//
+
+// * CStrongTyped
+
+// Copy Constructor
+CStrongTyped::CStrongTyped(const CStrongTyped & var,const char * typeId) :
+	CTypedVariant(var,typeId)
+{
+}
+
+// Copy Operator
+CStrongTyped & CStrongTyped::operator = (const CStrongTyped & var)
+{
+	this->copy(var);
+	return *this;
+}
+
+// * CTypedVariant
 
 // Copy Constructor
 CStrongTyped::CStrongTyped(const CTypedVariant & var,const char * typeId) :

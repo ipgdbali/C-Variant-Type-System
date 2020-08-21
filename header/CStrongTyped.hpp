@@ -10,9 +10,18 @@ class CStrongTyped : protected CTypedVariant
 		// Constructor
 		CStrongTyped(const char * typeId = nullptr,size_t size = 0);
 
+		//
 		// Copy Operation
+		// 
+
+		// CStrongTyped
+		CStrongTyped(const CStrongTyped & var, const char * typeId = nullptr);
+		CStrongTyped & operator = (const CStrongTyped & var);
+
+		// CTypedVariant
 		CStrongTyped(const CTypedVariant & var,const char * typeId = nullptr);
 		CStrongTyped & operator = (const CTypedVariant & var);
+
 		void copy(const CTypedVariant & var);
 		
 		// Move Operation

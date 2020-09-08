@@ -11,25 +11,25 @@ CWeakTyped::CWeakTyped() :
 
 // Copy Constructor
 CWeakTyped::CWeakTyped(const CWeakTyped & val) :
-	CTypedVariant(val,nullptr)
+	CTypedVariant(val,val.getTypeId())
 {
 }
 
 CWeakTyped::CWeakTyped(const CTypedVariant & val) :
-	CTypedVariant(val,nullptr)
+	CTypedVariant(val,val.getTypeId())
 {
 }
 
 // Copy Operator
 CWeakTyped & CWeakTyped::operator = (const CWeakTyped & val)
 {
-	this->copy(val);
+	CWeakTyped::copy(val);
 	return *this;
 }
 
 CWeakTyped & CWeakTyped::operator = (const CTypedVariant & val)
 {
-	this->copy(val);
+	CWeakTyped::copy(val);
 	return *this;
 }
 
@@ -45,11 +45,11 @@ void CWeakTyped::copy(const CTypedVariant & val)
 
 // Move Constructor
 CWeakTyped::CWeakTyped(CWeakTyped && val) :
-	CTypedVariant(std::move(val),nullptr)
+	CTypedVariant(std::move(val),val.getTypeId())
 {
 }
 CWeakTyped::CWeakTyped(CTypedVariant && val) :
-	CTypedVariant(std::move(val),nullptr)
+	CTypedVariant(std::move(val),val.getTypeId())
 {
 }
 

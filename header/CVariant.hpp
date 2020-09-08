@@ -20,14 +20,14 @@ using namespace std;
  *
  * User specify size to be allocated on custructor or by calling CVariant::alloc method with argument size to be allocated
  * 
- * If memry is allocated, user may check it using CVariant::isNull which will return false
+ * If memory is allocated, user may check it using CVariant::isNull which will return false and CVariant::isNotNull which return true
  *
  * Memory is release when destrutor is called or by calling CVariant::deAlloc method
  *
  * To write us method CVariant::write. Specific memory to be written along with size and its offset.
  * So as write, read also has same signature thus has same meaning
  *
- * To duplicate, use method CVariant::copy, Copy Construcor, Copy Operator (=&)
+ * Duplication, use method CVariant::copy, Copy Construcor, Copy Operator (=&)
  * To move, use moethod CVariant::move,Move Constructor and Move operator (=&&)
  * There is no way CVariant instances point to the same memory
  *

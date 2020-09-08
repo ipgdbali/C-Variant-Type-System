@@ -3,7 +3,7 @@
 
 #include "CTypedVariant.hpp"
 
-class CWeakTyped : protected CTypedVariant
+class CWeakTyped : public CTypedVariant
 {
 	public:
 		// Default Constructor

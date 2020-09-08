@@ -3,7 +3,7 @@
 
 #include "CTypedVariant.hpp"
 
-class CStrongTyped : protected CTypedVariant
+class CStrongTyped : public CTypedVariant
 {
 	public:
 

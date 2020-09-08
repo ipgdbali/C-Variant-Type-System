@@ -1,12 +1,15 @@
 #ifndef CSIMPLETYPE_HPP
 #define CSIMPLETYPE_HPP
 
+#include "CTypedVariant.hpp"
 #include "CStrongTyped.hpp" 
 
 template <typename T>
 class CSimpleType : public CStrongTyped
 {
 	public:
+
+		typedef T simple_type;
 
 		static const char * const TYPE_ID;
 
@@ -44,8 +47,8 @@ class CSimpleType : public CStrongTyped
 		//
 		// Setter
 		//
-		CSimpleType(T val);
-		CSimpleType & operator = (T val);
+		CSimpleType(const T val);
+		CSimpleType & operator = (const T val);
 		void set(T val);
 
 		//

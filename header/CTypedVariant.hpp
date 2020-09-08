@@ -7,11 +7,11 @@
  * CTypedVariant
  *
  * Special class derived from CVariant with type capability.
- * This class could not be instantiated because constructor is made protected.
- * The only avaiable Constructor is made to Copy or move another instance is as  operator overloading supplied too.
+ * There are 2 variant for move / copy operation
+ * one that reserve previous type and the other not
  *
  */
-class CTypedVariant : public CVariant
+class CTypedVariant : protected CVariant
 {
 	private:
 
@@ -61,6 +61,7 @@ class CTypedVariant : public CVariant
 		 * Set TypeId
 		 */
 		void setTypeId(const char * typeId);
+
 		/**
 		 * Return TypedId of CTypedVariant
 		 */

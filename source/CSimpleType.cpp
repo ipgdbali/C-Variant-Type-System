@@ -91,7 +91,7 @@ CSimpleType<T>::CSimpleType(T val) : CSimpleType()
 }
 
 template <typename T>
-void CSimpleType<T>::set(T val)
+void CSimpleType<T>::set(const T val)
 {
 	this->write(&val);
 }
@@ -105,7 +105,7 @@ T CSimpleType<T>::get()
 }
 
 template <typename T>
-CSimpleType<T> & CSimpleType<T>::operator = (T val)
+CSimpleType<T> & CSimpleType<T>::operator = (const T val)
 {
 	this->set(val);
 	return *this;

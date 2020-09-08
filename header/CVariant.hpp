@@ -17,19 +17,27 @@ using namespace std;
 /**
  * CVariant enables user to store data on heap
  * This functionality is achieved by using dynamic memory allocation at runtime
- *
- * User specify size to be allocated on custructor or by calling CVariant::alloc method with argument size to be allocated
+ * User specify size to be allocated on custructor or alloc method.
+ * If memory has been allocated while calling alloc,deAlloc is called to free
+ * previous memory before allocating new memory
+ * Supplying size to 0 will do nothing.
+ * On succes CVariant::alloc return true.
  * 
- * If memory is allocated, user may check it using CVariant::isNull which will return false and CVariant::isNotNull which return true
+ * Whether memory allocation status is not known at specific memont,
+ * use isNull or isNotNull method. Null means memory has not been allocated 
+ * and its size is 0
  *
- * Memory is release when destrutor is called or by calling CVariant::deAlloc method
+ * On destruction / destructor called, method deAlloc is called. This method 
+ * release allocated memory.
+ * Memory is release when destrutor is called or by calling deAlloc method
  *
- * To write us method CVariant::write. Specific memory to be written along with size and its offset.
+ * To write us method CVariant::write. Specific memory to be written along 
+ * with size and its offset.
  * So as write, read also has same signature thus has same meaning
  *
  * Duplication, use method CVariant::copy, Copy Construcor, Copy Operator (=&)
- * To move, use moethod CVariant::move,Move Constructor and Move operator (=&&)
- * There is no way CVariant instances point to the same memory
+ * To move, use method CVariant::move,Move Constructor and Move operator (=&&)
+ * There is no way for CVariant instances to point the same memory
  *
  */
 class CVariant
@@ -56,10 +64,11 @@ class CVariant
 	public:
 
 		/**
-		 * Default Constructor
-		 * Create CVariant instance without allocating memory CVariant(0)
+		 * Construct a CVariant with size size
+		 * if no size supplied this constructor will act as default constructor
+		 * which means no memory is allocated. 
 		 */
-		CVariant();
+		CVariant(size_t size = 0);
 
 		/**
 		 * Copy Constructor
@@ -78,13 +87,6 @@ class CVariant
 		CVariant(CVariant && var);
 
 
-		/**
-		 * Construct a CVariant with size size
-		 * If size is 0, no memory is allocated. 
-		 * pData = nullptr and Size = 0
-		 * This method calls CVariant::alloc
-		 */
-		CVariant(size_t size);
 
 		/**
 		 * Destroy Created CVariant by releasing its allocated resource

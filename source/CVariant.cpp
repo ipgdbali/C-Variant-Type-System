@@ -5,12 +5,10 @@ void * CVariant::getPData()
 	return this->m_pData;
 }
 
-/**
- * Default Constructor
- * Init nullptr internal data with size 0
- */
-CVariant::CVariant() : CVariant(0)
+CVariant::CVariant(size_t size) :
+	m_pData(nullptr),m_Size(size)
 {
+	this->alloc(size);
 }
 
 // Copy Constructor
@@ -22,12 +20,6 @@ CVariant::CVariant(const CVariant & var)
 CVariant::CVariant(CVariant && var)
 {
 	this->move(std::move(var));
-}
-
-CVariant::CVariant(size_t size) :
-	m_pData(nullptr),m_Size(size)
-{
-	this->alloc(size);
 }
 
 /**
@@ -57,7 +49,7 @@ bool CVariant::isNull()
 
 bool CVariant::isNotNull()
 {
-	return !(this->m_pData == nullptr && this->m_Size == 0);
+	return !this->isNull();
 }
 
 bool CVariant::alloc(size_t size)

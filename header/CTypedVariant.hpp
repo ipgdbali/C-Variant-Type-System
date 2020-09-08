@@ -7,6 +7,7 @@
  * CTypedVariant
  *
  * Special class derived from CVariant with type capability.
+ *
  * There are 2 variant for move / copy operation
  * one that reserve previous type and the other not
  *
@@ -20,13 +21,18 @@ class CTypedVariant : protected CVariant
 
 	protected:
 
+		/**
+		 * Set TypeId
+		 */
+		void setTypeId(const char * typeId);
+
 	public:
 
 		/**
 		 * Create CTypedVariant with type typeId and sizes size
-		 * Also function as default constructor  ?
+		 * Also function as default constructor
 		 */
-		CTypedVariant(const char * typeId = nullptr,size_t size = 0);
+		CTypedVariant(const char * typeId = "DT_NOT_DEFINED",size_t size = 0);
 
 		/**
 		 * Virtual destructor
@@ -50,17 +56,12 @@ class CTypedVariant : protected CVariant
 		 * @return 
 		 *	true - if copy is succeeded otherwise false
 		 */
-		bool copy(const CTypedVariant & var,bool reserveType=false);
+		virtual bool copy(const CTypedVariant & var) = 0;
 
 		/**
 		 * Move CTypedVariant var to this and set var to null
 		 */
-		bool move(CTypedVariant && var,bool reverseType=false);
-
-		/**
-		 * Set TypeId
-		 */
-		void setTypeId(const char * typeId);
+		virtual bool move(CTypedVariant && var) = 0;
 
 		/**
 		 * Return TypedId of CTypedVariant

@@ -40,10 +40,36 @@ class CSimpleType : public CStrongTyped
 		// Move Operator
 		CSimpleType & operator = (CSimpleType && var);
 
+		CSimpleType(const T val);
+		CSimpleType(const T & val);
+		CSimpleType(T && val);
+
+		CSimpleType & operator = (const T val);
+		CSimpleType & operator = (const T & val);
+		CSimpleType & operator = (T && val);
+
+		bool set(const T val);
+
+		//
+		// Getter
+		//
+		bool get(T * pVal);
+		bool get(T & val);
+		T get();
 	protected:
 
 	private:
 
 };
+
+typedef CSimpleType<int> CInt;
+typedef CSimpleType<unsigned int> CUInt;
+typedef CSimpleType<short> CShort;
+typedef CSimpleType<unsigned short> CUShort;
+typedef CSimpleType<char> CChar;
+typedef CSimpleType<unsigned char> CUChar;
+typedef CSimpleType<float> CFloat;
+typedef CSimpleType<double> CDouble;
+typedef CSimpleType<bool> CBool;
 
 #endif

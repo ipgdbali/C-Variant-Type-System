@@ -16,10 +16,10 @@ class CCString : public CStrongTyped
 		CCString(const char * val);
 
 		// Copy Constructor
-		CCString(const CTypedVariant & val);
+		CCString(const CCString & val);
 
 		// Move Construtor
-		CCString(CTypedVariant && val);
+		CCString(CCString && val);
 
 		//setter
 		void set(const char * val);

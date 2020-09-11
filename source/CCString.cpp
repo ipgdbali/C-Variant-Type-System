@@ -9,11 +9,11 @@ CCString::CCString(const char * val) : CStrongTyped(TYPE_ID,0)
 	this->set(val);
 }
 
-CCString::CCString(const CTypedVariant & val) : CStrongTyped(val)
+CCString::CCString(const CCString & val) : CStrongTyped(val)
 {
 }
 
-CCString::CCString(CTypedVariant && val) : CStrongTyped(std::move(val))
+CCString::CCString(CCString && val) : CStrongTyped(std::move(val))
 {
 }
 

@@ -94,6 +94,14 @@ T CSimpleType<T>::get()
 	return tmp;
 }
 
+template <typename T>
+bool CSimpleType<T>::get(T * pVal)
+{
+	this->read(pVal);
+	return true;
+}
+
+
 template <>
 const char * const CSimpleType<int>::TYPE_ID = "DT_INT";
 template <>

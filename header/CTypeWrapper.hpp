@@ -26,13 +26,9 @@ class CTypeWrapper : public CWeakTyped
 	//
 
 	// Copy Constructor
-	CTypeWrapper(const CTypeWrapper & var);
-	CTypeWrapper(const CWeakTyped & var);
 	CTypeWrapper(const CTypedVariant & var);
 
 	// Copy Operator
-	CTypeWrapper & operator = (const CTypeWrapper & var);
-	CTypeWrapper & operator = (const CWeakTyped & var);
 	CTypeWrapper & operator = (const CTypedVariant & var);
 
 	// Copy Method

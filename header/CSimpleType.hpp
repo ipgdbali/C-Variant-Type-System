@@ -11,7 +11,6 @@ class CSimpleType : public CStrongTyped
 
 		typedef T simple_type;
 
-		static const char * const TYPE_ID;
 
 		// Default Constructor
 		CSimpleType();
@@ -50,12 +49,13 @@ class CSimpleType : public CStrongTyped
 		//
 		// Getter
 		//
-		bool get(T * pVal);
 		bool get(T & val);
 		T get();
 	protected:
+		bool get(T * pVal);
 
 	private:
+		static const char * const TYPE_ID;
 
 };
 

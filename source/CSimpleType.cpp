@@ -63,25 +63,11 @@ CSimpleType<T>::CSimpleType(const T val) : CSimpleType<T>()
 }
 
 template <typename T>
-CSimpleType<T>::CSimpleType(const T & val) : CSimpleType<T>()
-{
-	this->set(val);
-}
-
-template <typename T>
 CSimpleType<T> & CSimpleType<T>::operator = (const T val)
 {
 	this->set(val);
 	return *this;
 }
-
-template <typename T>
-CSimpleType<T> & CSimpleType<T>::operator = (const T & val)
-{
-	this->set(val);
-	return * this;
-}
-
 
 template <typename T>
 bool CSimpleType<T>::set(const T val)
@@ -93,13 +79,6 @@ bool CSimpleType<T>::set(const T val)
 //
 // Getter
 //
-template <typename T>
-bool CSimpleType<T>::get(T * pVal)
-{
-	this->read(pVal);
-	return true;
-}
-
 template <typename T>
 bool CSimpleType<T>::get(T & val)
 {

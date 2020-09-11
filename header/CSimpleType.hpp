@@ -40,14 +40,11 @@ class CSimpleType : public CStrongTyped
 		// Move Operator
 		CSimpleType & operator = (CSimpleType && var);
 
+		//
+		// Setter
+		//
 		CSimpleType(const T val);
-		CSimpleType(const T & val);
-		CSimpleType(T && val);
-
 		CSimpleType & operator = (const T val);
-		CSimpleType & operator = (const T & val);
-		CSimpleType & operator = (T && val);
-
 		bool set(const T val);
 
 		//

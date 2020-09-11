@@ -1,17 +1,10 @@
 #include "CStrongTyped.hpp"
 
-// Constructor
-CStrongTyped::CStrongTyped(const char * typeId,size_t size) 
-	: CTypedVariant(typeId,size)
-{
-}
-
 //
 // Copy Operation
 //
 
 // Copy Constructor
-
 CStrongTyped::CStrongTyped(const CStrongTyped & var,const char * typeId) :
 	CTypedVariant(var,typeId)
 {
@@ -23,7 +16,6 @@ CStrongTyped::CStrongTyped(const CTypedVariant & var,const char * typeId) :
 }
 
 // Copy Operator
-
 CStrongTyped & CStrongTyped::operator = (const CStrongTyped & var)
 {
 	this->copy(var);
@@ -37,10 +29,28 @@ CStrongTyped & CStrongTyped::operator = (const CTypedVariant & var)
 }
 
 // Copy method
-void CStrongTyped::copy(const CTypedVariant & var)
+bool CStrongTyped::copy(const CTypedVariant & var)
 {
-	if(!CTypedVariant::copy(var,true))
-		throw domain_error("Type Mismatch");
+	if(this->getTypeId() == nullptr)
+	{
+		this->setTypeId(var.getTypeId());
+		CVariant::copy(var);
+		return true;
+	}
+	else
+	if (
+			this->getTypeId() == var.getTypeId() 
+			|| 
+			strcmp(this->getTypeId(),var.getTypeId()) == 0
+	)
+	{
+		CVariant::copy(var);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 //
@@ -72,18 +82,22 @@ CStrongTyped & CStrongTyped::operator = (CTypedVariant && var)
 }
 
 // Move method
-void CStrongTyped::move(CTypedVariant && var)
+bool CStrongTyped::move(CTypedVariant && var)
 {
-	if(!CTypedVariant::move(std::move(var),true))
-		throw domain_error("Type Mismatch");
+	if(this->getTypeId() == nullptr || this->getTypeId() == var.getTypeId())
+	{
+		CTypedVariant::swap(std::move(var));
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
-void CStrongTyped::setTypeId(const char * typeId)
+// Constructor
+CStrongTyped::CStrongTyped(const char * typeId,size_t size) 
+	: CTypedVariant(typeId,size)
 {
-	CTypedVariant::setTypeId(typeId);
 }
 
-const char * CStrongTyped::getTypeId() const
-{
-	return CTypedVariant::getTypeId();
-}

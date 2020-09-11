@@ -32,20 +32,6 @@ CSimpleType<T> & CSimpleType<T>::operator = (const CSimpleType & var)
 }
 
 template <typename T>
-CSimpleType<T> & CSimpleType<T>::operator = (const CStrongTyped & var)
-{
-	CStrongTyped::copy(var);
-	return *this;
-}
-
-template <typename T>
-CSimpleType<T> & CSimpleType<T>::operator = (const CTypedVariant & var)
-{
-	CStrongTyped::copy(var);
-	return *this;
-}
-
-template <typename T>
 CSimpleType<T>::CSimpleType(CSimpleType && var) :
 	CStrongTyped(std::move(var),TYPE_ID)
 {
@@ -69,54 +55,6 @@ CSimpleType<T> & CSimpleType<T>::operator = (CSimpleType && var)
 	CStrongTyped::move(std::move(var));
 	return *this;
 }
-
-template <typename T>
-CSimpleType<T> & CSimpleType<T>::operator = (CStrongTyped && var)
-{
-	CStrongTyped::move(std::move(var));
-	return *this;
-}
-
-template <typename T>
-CSimpleType<T> & CSimpleType<T>::operator = (CTypedVariant && var)
-{
-	CStrongTyped::move(std::move(var));
-	return *this;
-}
-
-template <typename T>
-CSimpleType<T>::CSimpleType(T val) : CSimpleType()
-{
-	this->set(val);
-}
-
-template <typename T>
-void CSimpleType<T>::set(const T val)
-{
-	this->write(&val);
-}
-
-template <typename T>
-T CSimpleType<T>::get()
-{
-	T dummy;
-	this->read(&dummy);
-	return dummy;
-}
-
-template <typename T>
-CSimpleType<T> & CSimpleType<T>::operator = (const T val)
-{
-	this->set(val);
-	return *this;
-}
-
-template <typename T>
-CSimpleType<T>::operator T ()
-{
-	return this->get();
-}
-
 
 template <>
 const char * const CSimpleType<int>::TYPE_ID = "DT_INT";

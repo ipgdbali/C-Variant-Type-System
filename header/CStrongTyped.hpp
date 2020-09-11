@@ -3,13 +3,13 @@
 
 #include "CTypedVariant.hpp"
 
+/**
+ * Cannot be instanced
+ * Default constructor is protected
+ */
 class CStrongTyped : public CTypedVariant
 {
 	public:
-
-		// Constructor
-		CStrongTyped(const char * typeId = nullptr,size_t size = 0);
-
 		//
 		// Copy Operation
 		// 
@@ -23,7 +23,7 @@ class CStrongTyped : public CTypedVariant
 		CStrongTyped & operator = (const CTypedVariant & var);
 
 		// Copy Method
-		void copy(const CTypedVariant & var);
+		bool copy(const CTypedVariant & var);
 		
 		//
 		// Move Operation
@@ -38,13 +38,12 @@ class CStrongTyped : public CTypedVariant
 		CStrongTyped & operator = (CTypedVariant && var);
 
 		// Move Method
-		void move(CTypedVariant && var);
-
-		// Runtime Type set & getter
-		void setTypeId(const char * typeId);
-		const char * getTypeId() const;
+		bool move(CTypedVariant && var);
 
 	protected:
+
+		// Constructor
+		CStrongTyped(const char * typeId = nullptr,size_t size = 0);
 
 	private:
 

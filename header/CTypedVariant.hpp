@@ -26,18 +26,24 @@ class CTypedVariant : protected CVariant
 		 */
 		void setTypeId(const char * typeId);
 
-	public:
+		/**
+		 * Swap Content
+		 */
+		void swap(CTypedVariant && var);
+
 
 		/**
 		 * Create CTypedVariant with type typeId and sizes size
 		 * Also function as default constructor
 		 */
-		CTypedVariant(const char * typeId = "DT_NOT_DEFINED",size_t size = 0);
+		CTypedVariant(const char * typeId = nullptr,size_t size = 0);
 
 		/**
 		 * Virtual destructor
 		 */
 		virtual ~CTypedVariant();
+
+	public:
 
 		/**
 		 * Copy Constructor
@@ -46,9 +52,9 @@ class CTypedVariant : protected CVariant
 		CTypedVariant(const CTypedVariant & var,const char * typeId = nullptr);
 
 		/**
-		 * Move Constructor
+		 * Copy Operator
 		 */
-		CTypedVariant(CTypedVariant && var,const char * typedId = nullptr);
+		CTypedVariant & operator = (const CTypedVariant & var);
 
 		/**
 		 * Copy CTypedVariant to this
@@ -59,6 +65,16 @@ class CTypedVariant : protected CVariant
 		virtual bool copy(const CTypedVariant & var) = 0;
 
 		/**
+		 * Move Constructor
+		 */
+		CTypedVariant(CTypedVariant && var,const char * typedId = nullptr);
+
+		/**
+		 * Move Operator
+		 */
+		CTypedVariant & operator = (CTypedVariant && var);
+
+		/**
 		 * Move CTypedVariant var to this and set var to null
 		 */
 		virtual bool move(CTypedVariant && var) = 0;
@@ -67,6 +83,7 @@ class CTypedVariant : protected CVariant
 		 * Return TypedId of CTypedVariant
 		 */
 		const char * getTypeId() const;
+
 		
 };
 

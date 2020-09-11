@@ -6,6 +6,12 @@ void CTypedVariant::setTypeId(const char * typeId)
 	this->m_TypeId = typeId;
 }
 
+void CTypedVariant::swap(CTypedVariant && var)
+{
+	std::swap(m_TypeId,var.m_TypeId);
+	CVariant::move(std::move(var));
+}
+
 /**
  * Constructor
  */
@@ -31,6 +37,12 @@ CTypedVariant::CTypedVariant(const CTypedVariant & var,const char * typeId) :
 		throw std::domain_error("Type Mismatch");
 }
 
+CTypedVariant & CTypedVariant::operator = (const CTypedVariant & var)
+{
+	this->copy(var);
+	return *this;
+}
+
 /**
  * Move Constructor
  */
@@ -39,6 +51,14 @@ CTypedVariant::CTypedVariant(CTypedVariant && var,const char * typeId) :
 {
 	if(typeId != nullptr && typeId != var.getTypeId())
 		throw std::domain_error("Type Mismatch");
+}
+/**
+ * Move Operator
+ */
+CTypedVariant & CTypedVariant::operator = (CTypedVariant && var)
+{
+	this->move(std::move(var));
+	return *this;
 }
 
 const char * CTypedVariant::getTypeId() const

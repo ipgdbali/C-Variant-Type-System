@@ -27,8 +27,6 @@ class CSimpleType : public CStrongTyped
 
 		// Copy Operator
 		CSimpleType & operator = (const CSimpleType & var);
-		CSimpleType & operator = (const CStrongTyped & var);
-		CSimpleType & operator = (const CTypedVariant & var);
 
 		//
 		// Move Operation
@@ -41,21 +39,6 @@ class CSimpleType : public CStrongTyped
 
 		// Move Operator
 		CSimpleType & operator = (CSimpleType && var);
-		CSimpleType & operator = (CStrongTyped && var);
-		CSimpleType & operator = (CTypedVariant && var);
-
-		//
-		// Setter
-		//
-		CSimpleType(const T val);
-		CSimpleType & operator = (const T val);
-		void set(T val);
-
-		//
-		// Getter
-		//
-		operator T ();
-		T get();
 
 	protected:
 

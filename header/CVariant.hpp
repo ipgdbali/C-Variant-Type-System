@@ -132,6 +132,12 @@ class CVariant
 		bool alloc(size_t size);
 
 		/**
+		 * Set an allocated memory to zero
+		 * return true if success
+		 */
+		bool setZero();
+
+		/**
 		 * Write data to Internal memory with sizes size and internal offsets
 		 * offset.
 		 * If size == 0 then this->getSize() is used

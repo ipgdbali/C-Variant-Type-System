@@ -73,6 +73,17 @@ bool CVariant::alloc(size_t size)
 		return false; // unsuccessfull
 }
 
+bool CVariant::setZero()
+{
+	if(this->isNotNull())
+	{
+		memset(this->getPData(),0,this->getSize());
+		return true;
+	}
+	else
+		return false;
+}
+
 bool CVariant::write(const void * pData,size_t size,size_t offset)
 {
 	if(size == 0)

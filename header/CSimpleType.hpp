@@ -46,14 +46,4 @@ class CSimpleType : public CStrongTyped
 
 };
 
-typedef CSimpleType<int> CInt;
-typedef CSimpleType<unsigned int> CUInt;
-typedef CSimpleType<short> CShort;
-typedef CSimpleType<unsigned short> CUShort;
-typedef CSimpleType<char> CChar;
-typedef CSimpleType<unsigned char> CUChar;
-typedef CSimpleType<float> CFloat;
-typedef CSimpleType<double> CDouble;
-typedef CSimpleType<bool> CBool;
-
 #endif

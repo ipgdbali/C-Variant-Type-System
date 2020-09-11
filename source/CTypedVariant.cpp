@@ -1,6 +1,5 @@
 #include "CTypedVariant.hpp"
 
-
 void CTypedVariant::setTypeId(const char * typeId)
 {
 	this->m_TypeId = typeId;

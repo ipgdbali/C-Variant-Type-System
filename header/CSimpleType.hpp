@@ -43,13 +43,15 @@ class CSimpleType : public CStrongTyped
 		//
 		CSimpleType(const T val);
 		CSimpleType & operator = (const T val);
-		bool set(const T val);
+		virtual	bool set(const T val);
 
 		//
 		// Getter
 		//
-		bool get(T * pVal);
-		bool get(T & val);
+		virtual bool get(T * pVal);
+
+		// TODO : Refactor out
+		virtual bool get(T & val);
 		T get();
 
 	protected:

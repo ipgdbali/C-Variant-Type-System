@@ -2,13 +2,13 @@
 
 template <typename T>
 CSimpleType<T>::CSimpleType() :
-	CStrongTyped(TYPE_ID,sizeof(T))
+	CStrongTyped(TYPE_ID,0)
 {
 }
 
 template <typename T>
 CSimpleType<T>::CSimpleType(const CSimpleType<T> & var) :
-	CStrongTyped(var,TYPE_ID)
+	CStrongTyped(var)
 {
 }
 
@@ -72,8 +72,9 @@ CSimpleType<T> & CSimpleType<T>::operator = (const T val)
 template <typename T>
 bool CSimpleType<T>::set(const T val)
 {
-	this->write(&val);
-	return true;
+	this->deAlloc();
+	this->alloc(sizeof(T));
+	return this->write(&val);
 }
 
 //
@@ -82,15 +83,13 @@ bool CSimpleType<T>::set(const T val)
 template <typename T>
 bool CSimpleType<T>::get(T * pVal)
 {
-	this->read(pVal);
-	return true;
+	return this->read(pVal);
 }
 
 template <typename T>
 bool CSimpleType<T>::get(T & val)
 {
-	this->read(&val);
-	return true;
+	return this->read(&val);
 }
 
 template <typename T>

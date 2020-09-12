@@ -1,6 +1,6 @@
 .PHONE : clean
 
-all : bin/CVariant bin/CSimpleType
+all : bin/CVariant bin/CSimpleType bin/CCString
 	@echo Executing 
 	@for f in $^; do printf " - $$f ... "; $$f; printf "Done\n"; done
 

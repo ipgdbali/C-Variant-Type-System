@@ -47,7 +47,7 @@ CCString & CCString::operator = (const char * val)
 	return * this;
 }
 
-bool CCString::get(char * val)
+bool CCString::get(char ** val)
 {
 	return this->read(val);
 }
@@ -56,7 +56,3 @@ size_t CCString::length() const
 {
 	return this->getSize() - 1;
 }
-
-template <>
-const char * const CSimpleType<char *>::TYPE_ID = "DT_STRING";
-

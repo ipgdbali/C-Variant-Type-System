@@ -32,7 +32,7 @@ class CCString : public CSimpleType<char*>
 		//
 		// Getter
 		//
-		virtual bool get(char * val);
+		virtual bool get(char ** val);
 		size_t length() const;
 
 	protected:

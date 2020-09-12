@@ -100,6 +100,18 @@ T CSimpleType<T>::get()
 	return tmp;
 }
 
+template <typename T>
+bool CSimpleType<T>::isNull()
+{
+	return CVariant::isNull();
+}
+
+template <typename T>
+bool CSimpleType<T>::isNotNull()
+{
+	return CVariant::isNotNull();
+}
+
 template <>
 const char * const CSimpleType<int>::TYPE_ID = "DT_INT";
 template <>

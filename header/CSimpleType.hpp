@@ -54,6 +54,13 @@ class CSimpleType : public CStrongTyped
 		virtual bool get(T & val);
 		T get();
 
+		//
+		// Query
+		//
+	
+		bool isNull();
+		bool isNotNull();
+
 	protected:
 
 	private:

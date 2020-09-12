@@ -1,39 +1,44 @@
 #include "CCString.hpp"
 
-CCString::CCString() : CStrongTyped(TYPE_ID,0)
+CCString::CCString() : CSimpleType()
 {
 }
 
 // Copy Constructor
 CCString::CCString(const CCString & var) :
-	CStrongTyped(var)
+	CSimpleType(var)
+{
+}
+
+CCString::CCString(const CSimpleType<char*> & var) :
+	CSimpleType(var)
 {
 }
 
 CCString::CCString(const CStrongTyped & var) :
-	CStrongTyped(var,TYPE_ID)
+	CSimpleType(var)
 {
 }
 
 CCString::CCString(const CTypedVariant & var) :
-	CStrongTyped(var,TYPE_ID)
+	CSimpleType(var)
 {
 }
 
-CCString::CCString(CCString && val) : CStrongTyped(std::move(val))
+CCString::CCString(CCString && val) : CSimpleType(std::move(val))
 {
 }
 
-CCString::CCString(const char * val) : CStrongTyped(TYPE_ID,0)
+CCString::CCString(const char * val) : CSimpleType()
 {
 	this->set(val);
 }
 
-void CCString::set(const char * val)
+bool CCString::set(const char * val)
 {
 	this->deAlloc();
 	this->alloc(strlen(val) + 1);
-	this->write(val);
+	return this->write(val);
 }
 
 CCString & CCString::operator = (const char * val)
@@ -42,9 +47,9 @@ CCString & CCString::operator = (const char * val)
 	return * this;
 }
 
-void CCString::get(char * val)
+bool CCString::get(char * val)
 {
-	this->read(val);
+	return this->read(val);
 }
 
 size_t CCString::length() const
@@ -52,4 +57,6 @@ size_t CCString::length() const
 	return this->getSize() - 1;
 }
 
-const char * const CCString::TYPE_ID = "DT_STRING";
+template <>
+const char * const CSimpleType<char *>::TYPE_ID = "DT_STRING";
+

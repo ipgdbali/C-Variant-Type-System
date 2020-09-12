@@ -50,21 +50,16 @@ class CSimpleType : public CStrongTyped
 		//
 		virtual bool get(T * pVal);
 
-		// TODO : Refactor out
-		virtual bool get(T & val);
-		T get();
-
 		//
 		// Query
 		//
-	
 		bool isNull();
 		bool isNotNull();
 
 	protected:
+		static const char * const TYPE_ID;
 
 	private:
-		static const char * const TYPE_ID;
 
 };
 

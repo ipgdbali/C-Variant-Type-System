@@ -87,20 +87,6 @@ bool CSimpleType<T>::get(T * pVal)
 }
 
 template <typename T>
-bool CSimpleType<T>::get(T & val)
-{
-	return this->read(&val);
-}
-
-template <typename T>
-T CSimpleType<T>::get()
-{
-	T tmp;
-	this->get(&tmp);
-	return tmp;
-}
-
-template <typename T>
 bool CSimpleType<T>::isNull()
 {
 	return CVariant::isNull();

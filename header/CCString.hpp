@@ -12,22 +12,26 @@ class CCString : public CStrongTyped
 		// Default Constructor
 		CCString();
 
-		// Construct CCStrong from const char *
-		CCString(const char * val);
-
 		// Copy Constructor
-		CCString(const CCString & val);
+		CCString(const CCString & var);
+		CCString(const CStrongTyped & var);
+		CCString(const CTypedVariant & var);
+
 
 		// Move Construtor
 		CCString(CCString && val);
 
-		//setter
+		//
+		// Setter
+		//
+		
+		// Construct CCStrong from const char *
+		CCString(const char * val);
 		void set(const char * val);
 		CCString & operator = (const char * val);
 
 		//gettter
 		void get(char * val);
-
 		size_t length() const;
 
 	protected:

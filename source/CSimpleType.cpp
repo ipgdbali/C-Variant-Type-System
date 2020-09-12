@@ -7,7 +7,7 @@ CSimpleType<T>::CSimpleType() :
 }
 
 template <typename T>
-CSimpleType<T>::CSimpleType(const CSimpleType & var) :
+CSimpleType<T>::CSimpleType(const CSimpleType<T> & var) :
 	CStrongTyped(var,TYPE_ID)
 {
 }
@@ -80,6 +80,13 @@ bool CSimpleType<T>::set(const T val)
 // Getter
 //
 template <typename T>
+bool CSimpleType<T>::get(T * pVal)
+{
+	this->read(pVal);
+	return true;
+}
+
+template <typename T>
 bool CSimpleType<T>::get(T & val)
 {
 	this->read(&val);
@@ -93,14 +100,6 @@ T CSimpleType<T>::get()
 	this->get(&tmp);
 	return tmp;
 }
-
-template <typename T>
-bool CSimpleType<T>::get(T * pVal)
-{
-	this->read(pVal);
-	return true;
-}
-
 
 template <>
 const char * const CSimpleType<int>::TYPE_ID = "DT_INT";

@@ -4,17 +4,29 @@ CCString::CCString() : CStrongTyped(TYPE_ID,0)
 {
 }
 
-CCString::CCString(const char * val) : CStrongTyped(TYPE_ID,0)
+// Copy Constructor
+CCString::CCString(const CCString & var) :
+	CStrongTyped(var)
 {
-	this->set(val);
 }
 
-CCString::CCString(const CCString & val) : CStrongTyped(val)
+CCString::CCString(const CStrongTyped & var) :
+	CStrongTyped(var,TYPE_ID)
+{
+}
+
+CCString::CCString(const CTypedVariant & var) :
+	CStrongTyped(var,TYPE_ID)
 {
 }
 
 CCString::CCString(CCString && val) : CStrongTyped(std::move(val))
 {
+}
+
+CCString::CCString(const char * val) : CStrongTyped(TYPE_ID,0)
+{
+	this->set(val);
 }
 
 void CCString::set(const char * val)

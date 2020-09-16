@@ -1,5 +1,10 @@
 #include "CCString.hpp"
 
+template <>
+const char * const CSimpleType<char *>::TYPE_ID = "DT_STRING";
+
+template class CSimpleType<char *>;
+
 CCString::CCString() : CSimpleType()
 {
 }
@@ -56,3 +61,4 @@ size_t CCString::length() const
 {
 	return this->getSize() - 1;
 }
+

@@ -39,7 +39,6 @@ class CCString : public CSimpleType<char*>
 
 	private:
 
-
 };
 
 #endif

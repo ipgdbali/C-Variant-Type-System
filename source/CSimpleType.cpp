@@ -116,8 +116,6 @@ template <>
 const char * const CSimpleType<double>::TYPE_ID = "DT_DOUBLE";
 template <>
 const char * const CSimpleType<bool>::TYPE_ID = "DT_BOOL";
-template <>
-const char * const CSimpleType<char *>::TYPE_ID = "DT_STRING";
 
 template class CSimpleType<int>;
 template class CSimpleType<unsigned int>;
@@ -128,4 +126,3 @@ template class CSimpleType<unsigned char>;
 template class CSimpleType<float>;
 template class CSimpleType<double>;
 template class CSimpleType<bool>;
-template class CSimpleType<char *>;
